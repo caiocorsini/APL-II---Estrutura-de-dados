@@ -15,7 +15,7 @@ public class BST{
     }
 
     private void inOrderTraversalAux(Node currentNode){
-        if(currentNode.isEmpty()) return;
+        if(currentNode == null) return;
         if(currentNode.hasLeftChild()) inOrderTraversalAux(currentNode.left);
         System.out.printf("%d ", currentNode.data);
         if(currentNode.hasRightChild()) inOrderTraversalAux(currentNode.right);
@@ -28,7 +28,7 @@ public class BST{
     }
 
     private void preOrderTraversalAux(Node currentNode){
-        if(currentNode.isEmpty()) return;
+        if(currentNode == null) return;
         System.out.printf("%d ", currentNode.data);
         if(currentNode.hasLeftChild()) preOrderTraversalAux(currentNode.left);
         if(currentNode.hasRightChild()) preOrderTraversalAux(currentNode.right);
@@ -41,7 +41,7 @@ public class BST{
     }
 
     private void postOrderTraversalAux(Node currentNode){
-        if(currentNode.isEmpty()) return;
+        if(currentNode == null) return;
         if(currentNode.hasLeftChild()) postOrderTraversalAux(currentNode.left);
         if(currentNode.hasRightChild()) postOrderTraversalAux(currentNode.right);
         System.out.printf("%d ", currentNode.data);
@@ -54,7 +54,7 @@ public class BST{
     }
 
     private void levelOrderTraversalAux(Node currentNode){
-        if(currentNode.isEmpty()) return;
+        if(currentNode == null) return;
         Queue<Node> queue = new LinkedList<>();  // Fila implementada com linked list
         queue.add(currentNode);
         while(!queue.isEmpty()){
@@ -99,7 +99,7 @@ public class BST{
     }
 
     private Node getMaxAux(Node currentNode){
-        if(currentNode.isEmpty()) return null;
+        if(currentNode == null) return null;
         if(currentNode.hasRightChild()) return getMaxAux(currentNode.right);
         else return currentNode;
     }
@@ -110,7 +110,7 @@ public class BST{
     }
 
     private Node getMinAux(Node currentNode){
-        if(currentNode.isEmpty()) return null;
+        if(currentNode == null) return null;
         if(currentNode.hasLeftChild()) return getMinAux(currentNode.left);
         else return currentNode;
     }
@@ -120,7 +120,7 @@ public class BST{
     Node getSuccessor(Node currentNode){
         if(currentNode.hasRightChild()) return getMinAux(currentNode.right); // Vai para a subarvore se tiver
         Node parentNode = currentNode.parent;
-        while(parentNode!=null && parentNode.right == parentNode){ // Sobe se não tiver subarvore
+        while(parentNode!=null && parentNode.right == currentNode){ // Sobe se não tiver subarvore
             currentNode = parentNode;
             parentNode = currentNode.parent;
         }
@@ -131,7 +131,7 @@ public class BST{
     Node getAntecessor(Node currentNode){
         if(currentNode.hasLeftChild()) return getMaxAux(currentNode.left); // Vai para a subarvore se tiver
         Node parentNode = currentNode.parent;
-        while(parentNode!=null && parentNode.left == parentNode){ // Sobe se não tiver subarvore
+        while(parentNode!=null && parentNode.left == currentNode){ // Sobe se não tiver subarvore
             currentNode = parentNode;
             parentNode = currentNode.parent;
         }
@@ -145,9 +145,10 @@ public class BST{
         if(nodeToRemove == null) return;
         Node parentNode = nodeToRemove.parent;
         if(nodeToRemove.isLeaf()){
-            nodeToRemove.parent = null;
-            if(parentNode.right == nodeToRemove) parentNode.right = null;
-            if(parentNode.left == nodeToRemove) parentNode.left = null;
+            if(parentNode != null){
+                if(parentNode.right == nodeToRemove) parentNode.right = null;
+                else if(parentNode.left == nodeToRemove) parentNode.left = null;
+            } else root = null;
             return;
         }
 

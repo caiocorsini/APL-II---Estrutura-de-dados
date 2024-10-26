@@ -9,8 +9,18 @@ public class Main {
         arvore.insert(4);
         arvore.insert(5);
         arvore.insert(6);
-        arvore.insert(-1);
-        arvore.insert(-2);
+        arvore.insert(10);
+        arvore.insert(12);
+
+        arvore.insert(101);
+        arvore.insert(102);
+        arvore.insert(103);
+        arvore.insert(104);
+        arvore.insert(105);
+        arvore.insert(106);
+        arvore.insert(107);
+        arvore.insert(108);
+        arvore.insert(109);
     }
 
     public static void gerarAVL(AVL arvore){
@@ -21,8 +31,18 @@ public class Main {
         arvore.insertAVL(4);
         arvore.insertAVL(5);
         arvore.insertAVL(6);
-        arvore.insertAVL(-1);
-        arvore.insertAVL(-2);
+        arvore.insertAVL(10);
+        arvore.insertAVL(12);
+
+        arvore.insertAVL(101);
+        arvore.insertAVL(102);
+        arvore.insertAVL(103);
+        arvore.insertAVL(104);
+        arvore.insertAVL(105);
+        arvore.insertAVL(106);
+        arvore.insertAVL(107);
+        arvore.insertAVL(108);
+        arvore.insertAVL(109);
     }
 
 
@@ -39,7 +59,11 @@ public class Main {
         // Node exemplo = arvore.search(0); System.out.printf("%d", arvore.getAntecessor(exemplo).data);
         // arvore.removeNode(0);
         // arvore.inOrderTraversal();
+        arvore.preOrderTraversal();
+        System.out.printf("\nroot BST: %d\n", arvore.root.data);
+        System.out.printf("altura BST: %d\n\n", arvore.root.getHeight());
         arvore2.preOrderTraversal();
-        System.out.printf("\nroot: %d", arvore2.root.data);
+        System.out.printf("\nroot AVL: %d\n", arvore2.root.data);
+        System.out.printf("altura BST: %d\n", arvore2.root.getHeight());
     }
 }

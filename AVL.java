@@ -7,6 +7,7 @@ public class AVL extends BST{
         Node aux = currentRoot.left;
         currentRoot.left = aux.right;
         aux.right = currentRoot;
+        aux.parent = currentRoot.parent;
         currentRoot.parent = aux;
         currentRoot.updateHeight();
         aux.updateHeight();
@@ -17,6 +18,7 @@ public class AVL extends BST{
         Node aux = currentRoot.right;
         currentRoot.right = aux.left;
         aux.left = currentRoot;
+        aux.parent = currentRoot.parent;
         currentRoot.parent = aux;
         currentRoot.updateHeight();
         aux.updateHeight();
@@ -38,23 +40,32 @@ public class AVL extends BST{
     }
 
     private Node insertAVLAux(Node currentNode, Node parentNode, int value){
-        Node newNode = new Node(value);
-        newNode.parent = parentNode;
-        if(currentNode == null) return newNode;
+        //Node newNode = new Node(value);
+        //newNode.parent = parentNode;
+        if(currentNode == null){
+            Node newNode = new Node(value);
+            newNode.parent = parentNode;
+            return newNode;
+        }
+
         if(value<currentNode.data) {
-            currentNode.left = insertAVLAux(currentNode.left, parentNode, value);
+            currentNode.left = insertAVLAux(currentNode.left, currentNode, value);
+            currentNode.updateHeight();
             if(currentNode.balancingFactor() == 2){
                 if(value<currentNode.left.data) currentNode = rightRotate(currentNode);
                 else if(value>currentNode.left.data) currentNode = leftRightRotate(currentNode);
             }
         }
+
         else if(value>currentNode.data){
-            currentNode.right = insertAVLAux(currentNode.right, parentNode, value);
+            currentNode.right = insertAVLAux(currentNode.right, currentNode, value);
+            currentNode.updateHeight();
             if(currentNode.balancingFactor() == -2){
                 if(value>currentNode.right.data) currentNode = leftRotate(currentNode);
                 else if(value<currentNode.right.data) currentNode = rightLeftRotate(currentNode);
             }
         }
+        currentNode.updateHeight();
         return currentNode;
     }
 

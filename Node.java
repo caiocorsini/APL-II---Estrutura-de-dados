@@ -11,7 +11,7 @@ public class Node{
         this.left = null;
         this.right = null;
         this.parent = null;
-        height = getHeight();
+        height = 0;
     }
 
     // Presenca de determinados ponteiros
@@ -66,9 +66,5 @@ public class Node{
         if(this.hasLeftChild()) balLeft = this.left.getHeight();
         if(this.hasRightChild()) balRight = this.right.getHeight();
         return balLeft - balRight;
-    }
-
-    boolean isEmpty(){
-        return this == null;
     }
 }
