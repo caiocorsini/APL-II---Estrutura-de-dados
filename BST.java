@@ -93,6 +93,22 @@ public class BST{
         return null;
     }
 
+    // Busca por elementos na arvore
+    int searchContagem(int value){
+        if(root==null) return 0;
+        Contagem n = new Contagem();
+        searchContagemAux(root, value, n);
+        return n.getN();
+    }
+
+    private void searchContagemAux(Node currentNode, int value, Contagem n){
+        if(currentNode.data == value) return;
+        n.adicionar();
+        if(value>currentNode.data) searchContagemAux(currentNode.right, value, n);
+        if(value<currentNode.data) searchContagemAux(currentNode.left, value, n);
+        return;
+    }
+
     // Retorna o maior elemento da arvore.
     Node getMax(){
         return getMaxAux(root);
