@@ -60,11 +60,11 @@ public class Main {
         // arvore.removeNode(0);
         // arvore.inOrderTraversal();
         arvore.preOrderTraversal();
-        System.out.printf("\nroot BST: %d\n", arvore.root.data);
+        System.out.printf("\nroot BST: %d\n", arvore.root.getData());
         System.out.printf("altura BST: %d\n", arvore.root.getHeight());
         System.out.printf("n de nos para achar 109: %d\n\n", arvore.searchContagem(109));
         arvore2.preOrderTraversal();
-        System.out.printf("\nroot AVL: %d\n", arvore2.root.data);
+        System.out.printf("\nroot AVL: %d\n", arvore2.root.getData());
         System.out.printf("altura BST: %d\n", arvore2.root.getHeight());
         System.out.printf("n de nos para achar 109: %d\n\n", arvore2.searchContagem(109));
     }

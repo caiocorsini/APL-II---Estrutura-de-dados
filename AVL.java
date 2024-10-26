@@ -4,34 +4,34 @@ public class AVL extends BST{
     }
 
     Node rightRotate(Node currentRoot){
-        Node aux = currentRoot.left;
-        currentRoot.left = aux.right;
-        aux.right = currentRoot;
-        aux.parent = currentRoot.parent;
-        currentRoot.parent = aux;
+        Node aux = currentRoot.getLeft();
+        currentRoot.setLeft(aux.getRight());
+        aux.setRight(currentRoot);
+        aux.setParent(currentRoot.getParent());
+        currentRoot.setParent(aux);
         currentRoot.updateHeight();
         aux.updateHeight();
         return aux;
     }
 
     Node leftRotate(Node currentRoot){
-        Node aux = currentRoot.right;
-        currentRoot.right = aux.left;
-        aux.left = currentRoot;
-        aux.parent = currentRoot.parent;
-        currentRoot.parent = aux;
+        Node aux = currentRoot.getRight();
+        currentRoot.setRight(aux.getLeft());
+        aux.setLeft(currentRoot);
+        aux.setParent(currentRoot.getParent());
+        currentRoot.setParent(aux);
         currentRoot.updateHeight();
         aux.updateHeight();
         return aux;
     }
 
     Node rightLeftRotate(Node currentRoot){
-        currentRoot.right = rightRotate(currentRoot.right);
+        currentRoot.setRight(rightRotate(currentRoot.getRight()));
         return leftRotate(currentRoot);
     }
 
     Node leftRightRotate(Node currentRoot){
-        currentRoot.left = leftRotate(currentRoot);
+        currentRoot.setLeft(leftRotate(currentRoot.getLeft()));;
         return rightRotate(currentRoot);
     }
 
@@ -44,25 +44,25 @@ public class AVL extends BST{
         //newNode.parent = parentNode;
         if(currentNode == null){
             Node newNode = new Node(value);
-            newNode.parent = parentNode;
+            newNode.setParent(parentNode);
             return newNode;
         }
 
-        if(value<currentNode.data) {
-            currentNode.left = insertAVLAux(currentNode.left, currentNode, value);
+        if(value<currentNode.getData()) {
+            currentNode.setLeft(insertAVLAux(currentNode.getLeft(), currentNode, value));
             currentNode.updateHeight();
             if(currentNode.balancingFactor() == 2){
-                if(value<currentNode.left.data) currentNode = rightRotate(currentNode);
-                else if(value>currentNode.left.data) currentNode = leftRightRotate(currentNode);
+                if(value<currentNode.getLeft().getData()) currentNode = rightRotate(currentNode);
+                else if(value>currentNode.getLeft().getData()) currentNode = leftRightRotate(currentNode);
             }
         }
 
-        else if(value>currentNode.data){
-            currentNode.right = insertAVLAux(currentNode.right, currentNode, value);
+        else if(value>currentNode.getData()){
+            currentNode.setRight(insertAVLAux(currentNode.getRight(), currentNode, value));;
             currentNode.updateHeight();
             if(currentNode.balancingFactor() == -2){
-                if(value>currentNode.right.data) currentNode = leftRotate(currentNode);
-                else if(value<currentNode.right.data) currentNode = rightLeftRotate(currentNode);
+                if(value>currentNode.getRight().getData()) currentNode = leftRotate(currentNode);
+                else if(value<currentNode.getRight().getData()) currentNode = rightLeftRotate(currentNode);
             }
         }
         currentNode.updateHeight();
@@ -78,15 +78,15 @@ public class AVL extends BST{
     private Node removeNodeAVLAux(Node currentNode, int value) {
         if (currentNode == null) return currentNode; // Caso nao tenha nada para ser removido
         
-        if (value < currentNode.data) {  // Procurando pelo no a ser removido
-            currentNode.left = removeNodeAVLAux(currentNode.left, value);
-        } else if (value > currentNode.data) {
-            currentNode.right = removeNodeAVLAux(currentNode.right, value);
+        if (value < currentNode.getData()) {  // Procurando pelo no a ser removido
+            currentNode.setLeft(removeNodeAVLAux(currentNode.getLeft(), value));
+        } else if (value > currentNode.getData()) {
+            currentNode.setRight(removeNodeAVLAux(currentNode.getRight(), value));
         } else { 
     
             // No com nenhum ou apenas um filho
-            if (currentNode.left == null || currentNode.right == null) {
-                Node temp = currentNode.left != null ? currentNode.left : currentNode.right;
+            if (currentNode.getLeft() == null || currentNode.getRight() == null) {
+                Node temp = currentNode.getLeft() != null ? currentNode.getLeft() : currentNode.getRight();
     
                 // Sem filhos
                 if (temp == null) {
@@ -96,16 +96,16 @@ public class AVL extends BST{
                     currentNode = temp; // Apenas um filho
                 }
             } else {
-                Node temp = currentNode.right;
-                while (temp.left != null) {
-                    temp = temp.left;
+                Node temp = currentNode.getRight();
+                while (temp.getLeft() != null) {
+                    temp = temp.getLeft();
                 }
     
                 // Copiando o dado do sucessor
-                currentNode.data = temp.data;
+                currentNode.setData(temp.getData());
     
                 // Deletando o sucessor
-                currentNode.right = removeNodeAVLAux(currentNode.right, temp.data);
+                currentNode.setRight(removeNodeAVLAux(currentNode.getRight(), temp.getData()));
             }
         }
     
@@ -117,13 +117,13 @@ public class AVL extends BST{
     
         if (balance == 2) {
             // Vendo de que lado esta desbalanceado
-            if (currentNode.left.balancingFactor() >= 0) {
+            if (currentNode.getLeft().balancingFactor() >= 0) {
                 currentNode = rightRotate(currentNode);
             } else {
                 currentNode = leftRightRotate(currentNode);
             }
         } else if (balance == -2) {
-            if (currentNode.right.balancingFactor() <= 0) {
+            if (currentNode.getRight().balancingFactor() <= 0) {
                 currentNode = leftRotate(currentNode);
             } else {
                 currentNode = rightLeftRotate(currentNode);

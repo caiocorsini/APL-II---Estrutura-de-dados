@@ -1,9 +1,9 @@
 public class Node{
-    public int data;
-    public Node right;
-    public Node left;
-    public Node parent;
-    public int height;
+    private int data;
+    private Node right;
+    private Node left;
+    private Node parent;
+    private int height;
 
     // Construtor
     Node(int data){
@@ -11,8 +11,18 @@ public class Node{
         this.left = null;
         this.right = null;
         this.parent = null;
-        height = 0;
+        height = -1;
     }
+
+    public int getData() {return data;}
+    public void setData(int data) {this.data = data;}
+    public Node getRight() {return right;}
+    public void setRight(Node right) {this.right = right;}
+    public Node getLeft() {return left;}
+    public void setLeft(Node left) {this.left = left;}
+    public Node getParent() {return parent;}
+    public void setParent(Node parent) {this.parent = parent;}
+    public void setHeight(int height) {this.height = height;}
 
     // Presenca de determinados ponteiros
     boolean hasRightChild(){return right != null;}
@@ -45,7 +55,8 @@ public class Node{
 
     // Calcula a altura da arvore. Usa funcao auxiliar.
     int getHeight(){
-        return getHeightAux(this);
+        if (height == -1) height = getHeightAux(this);
+        return height;
     }
 
     // Atualiza a altura de um determinado nó.
@@ -61,10 +72,9 @@ public class Node{
     }
 
     // Calcula o fator de balanceamento. Necessário para árvores AVL
-    int balancingFactor(){
-        int balLeft = -1, balRight = -1;
-        if(this.hasLeftChild()) balLeft = this.left.getHeight();
-        if(this.hasRightChild()) balRight = this.right.getHeight();
-        return balLeft - balRight;
+    int balancingFactor() {
+        int balanceLeft = hasLeftChild() ? this.left.getHeight() : -1;
+        int balanceRight = hasRightChild() ? this.right.getHeight() : -1;
+        return balanceLeft - balanceRight;
     }
 }

@@ -16,9 +16,9 @@ public class BST{
 
     private void inOrderTraversalAux(Node currentNode){
         if(currentNode == null) return;
-        if(currentNode.hasLeftChild()) inOrderTraversalAux(currentNode.left);
-        System.out.printf("%d ", currentNode.data);
-        if(currentNode.hasRightChild()) inOrderTraversalAux(currentNode.right);
+        if(currentNode.hasLeftChild()) inOrderTraversalAux(currentNode.getLeft());
+        System.out.printf("%d ", currentNode.getData());
+        if(currentNode.hasRightChild()) inOrderTraversalAux(currentNode.getRight());
     }
 
     // Travessia pre-ordem
@@ -29,9 +29,9 @@ public class BST{
 
     private void preOrderTraversalAux(Node currentNode){
         if(currentNode == null) return;
-        System.out.printf("%d ", currentNode.data);
-        if(currentNode.hasLeftChild()) preOrderTraversalAux(currentNode.left);
-        if(currentNode.hasRightChild()) preOrderTraversalAux(currentNode.right);
+        System.out.printf("%d ", currentNode.getData());
+        if(currentNode.hasLeftChild()) preOrderTraversalAux(currentNode.getLeft());
+        if(currentNode.hasRightChild()) preOrderTraversalAux(currentNode.getRight());
     }
 
     // Travessia pos-ordem
@@ -42,9 +42,9 @@ public class BST{
 
     private void postOrderTraversalAux(Node currentNode){
         if(currentNode == null) return;
-        if(currentNode.hasLeftChild()) postOrderTraversalAux(currentNode.left);
-        if(currentNode.hasRightChild()) postOrderTraversalAux(currentNode.right);
-        System.out.printf("%d ", currentNode.data);
+        if(currentNode.hasLeftChild()) postOrderTraversalAux(currentNode.getLeft());
+        if(currentNode.hasRightChild()) postOrderTraversalAux(currentNode.getRight());
+        System.out.printf("%d ", currentNode.getData());
     }
 
     // Travessia em nível
@@ -58,10 +58,10 @@ public class BST{
         Queue<Node> queue = new LinkedList<>();  // Fila implementada com linked list
         queue.add(currentNode);
         while(!queue.isEmpty()){
-            System.out.printf("%d ", queue.peek().data);
+            System.out.printf("%d ", queue.peek().getData());
             currentNode = queue.remove();
-            if(currentNode.hasLeftChild()) queue.add(currentNode.left);
-            if(currentNode.hasRightChild()) queue.add(currentNode.right);
+            if(currentNode.hasLeftChild()) queue.add(currentNode.getLeft());
+            if(currentNode.hasRightChild()) queue.add(currentNode.getRight());
         }
     }
 
@@ -72,10 +72,10 @@ public class BST{
 
     private Node insertAux(Node currentNode, Node parentNode, int value){
         Node newNode = new Node(value);
-        newNode.parent = parentNode;
+        newNode.setParent(parentNode);
         if(currentNode==null) return newNode;
-        if(value<currentNode.data) currentNode.left = insertAux(currentNode.left, currentNode, value);
-        else currentNode.right = insertAux(currentNode.right, currentNode, value);
+        if(value<currentNode.getData()) currentNode.setLeft(insertAux(currentNode.getLeft(), currentNode, value));
+        else currentNode.setRight(insertAux(currentNode.getRight(), currentNode, value));
         return currentNode;
     }
 
@@ -87,9 +87,9 @@ public class BST{
     }
 
     private Node searchAux(Node currentNode, int value){
-        if(currentNode.data == value) return currentNode;
-        if(value>currentNode.data) return searchAux(currentNode.right, value);
-        if(value<currentNode.data) return searchAux(currentNode.left, value);
+        if(currentNode.getData() == value) return currentNode;
+        if(value>currentNode.getData()) return searchAux(currentNode.getRight(), value);
+        if(value<currentNode.getData()) return searchAux(currentNode.getLeft(), value);
         return null;
     }
 
@@ -102,10 +102,10 @@ public class BST{
     }
 
     private void searchContagemAux(Node currentNode, int value, Contagem n){
-        if(currentNode.data == value) return;
+        if(currentNode.getData() == value) return;
         n.adicionar();
-        if(value>currentNode.data) searchContagemAux(currentNode.right, value, n);
-        if(value<currentNode.data) searchContagemAux(currentNode.left, value, n);
+        if(value>currentNode.getData()) searchContagemAux(currentNode.getRight(), value, n);
+        if(value<currentNode.getData()) searchContagemAux(currentNode.getLeft(), value, n);
         return;
     }
 
@@ -116,7 +116,7 @@ public class BST{
 
     private Node getMaxAux(Node currentNode){
         if(currentNode == null) return null;
-        if(currentNode.hasRightChild()) return getMaxAux(currentNode.right);
+        if(currentNode.hasRightChild()) return getMaxAux(currentNode.getRight());
         else return currentNode;
     }
 
@@ -127,29 +127,29 @@ public class BST{
 
     private Node getMinAux(Node currentNode){
         if(currentNode == null) return null;
-        if(currentNode.hasLeftChild()) return getMinAux(currentNode.left);
+        if(currentNode.hasLeftChild()) return getMinAux(currentNode.getLeft());
         else return currentNode;
     }
 
 
     // Acha o sucessor de um nó
     Node getSuccessor(Node currentNode){
-        if(currentNode.hasRightChild()) return getMinAux(currentNode.right); // Vai para a subarvore se tiver
-        Node parentNode = currentNode.parent;
-        while(parentNode!=null && parentNode.right == currentNode){ // Sobe se não tiver subarvore
+        if(currentNode.hasRightChild()) return getMinAux(currentNode.getRight()); // Vai para a subarvore se tiver
+        Node parentNode = currentNode.getParent();
+        while(parentNode!=null && parentNode.getRight() == currentNode){ // Sobe se não tiver subarvore
             currentNode = parentNode;
-            parentNode = currentNode.parent;
+            parentNode = currentNode.getParent();
         }
         return parentNode;
     }
 
     // Acha o antecessor de um nó
     Node getAntecessor(Node currentNode){
-        if(currentNode.hasLeftChild()) return getMaxAux(currentNode.left); // Vai para a subarvore se tiver
-        Node parentNode = currentNode.parent;
-        while(parentNode!=null && parentNode.left == currentNode){ // Sobe se não tiver subarvore
+        if(currentNode.hasLeftChild()) return getMaxAux(currentNode.getLeft()); // Vai para a subarvore se tiver
+        Node parentNode = currentNode.getParent();
+        while(parentNode!=null && parentNode.getLeft() == currentNode){ // Sobe se não tiver subarvore
             currentNode = parentNode;
-            parentNode = currentNode.parent;
+            parentNode = currentNode.getParent();
         }
         return parentNode;
     }
@@ -159,35 +159,35 @@ public class BST{
     void removeNode(int value){
         Node nodeToRemove = search(value);
         if(nodeToRemove == null) return;
-        Node parentNode = nodeToRemove.parent;
+        Node parentNode = nodeToRemove.getParent();
         if(nodeToRemove.isLeaf()){
             if(parentNode != null){
-                if(parentNode.right == nodeToRemove) parentNode.right = null;
-                else if(parentNode.left == nodeToRemove) parentNode.left = null;
+                if(parentNode.getRight() == nodeToRemove) parentNode.setRight(null);
+                else if(parentNode.getLeft() == nodeToRemove) parentNode.setLeft(null);
             } else root = null;
             return;
         }
 
         if(nodeToRemove.getDegree() == 1){
-            nodeToRemove.parent = null;
+            nodeToRemove.setParent(null);
             Node aux;
             if(nodeToRemove.hasLeftChild()) {
-                aux = nodeToRemove.left;
-                nodeToRemove.left = null;
+                aux = nodeToRemove.getLeft();
+                nodeToRemove.setLeft(null);
             }
             else {
-                aux = nodeToRemove.right;
-                nodeToRemove.right = null;
+                aux = nodeToRemove.getRight();
+                nodeToRemove.setRight(null);
             }
-            if(parentNode.right == nodeToRemove) parentNode.right = aux;
-            if(parentNode.left == nodeToRemove) parentNode.left = aux;
+            if(parentNode.getRight() == nodeToRemove) parentNode.setRight(aux);
+            if(parentNode.getLeft() == nodeToRemove) parentNode.setLeft(aux);
             return;
         }
 
         if(nodeToRemove.getDegree() == 2){
-            int successorData = getSuccessor(nodeToRemove).data;
+            int successorData = getSuccessor(nodeToRemove).getData();
             removeNode(successorData);
-            nodeToRemove.data = successorData;
+            nodeToRemove.setData(successorData);
         }
     }
 }
