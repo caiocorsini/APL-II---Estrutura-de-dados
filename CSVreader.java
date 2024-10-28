@@ -123,7 +123,7 @@ public class CSVreader {
             currentEscola.setMun(columns[3]);
             currentEscola.setCateg(columns[4]);
             currentEscola.setTipoEsc(columns[5]);
-            currentEscola.setCodEsc(columns[6]);
+            currentEscola.setCodEsc(Integer.parseInt(columns[6]));
             currentEscola.setNomEsc(columns[7]);
 
             currentEscola.setAlAlemaoDu(Integer.parseInt(columns[8]));

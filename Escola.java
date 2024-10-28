@@ -11,7 +11,7 @@ public class Escola {
     private String mun; // Município
     private String categ; // Categoria da Classe
     private String tipoEsc; // Tipo da Escola
-    private String codEsc; // Código da Escola
+    private int codEsc; // Código da Escola <--CHAVE-->
     private String nomEsc; // Nome da Unidade Escolar
 
     private int alAlemaoDu; // Nº de Alunos de Alemão DURANTE A SEMANA
@@ -77,7 +77,7 @@ public class Escola {
         this.mun = null;
         this.categ = null;
         this.tipoEsc = null;
-        this.codEsc = null;
+        this.codEsc = 0;
         this.nomEsc = null;
         this.alAlemaoDu = 0;
         this.alEspanholDu = 0;
@@ -148,8 +148,8 @@ public class Escola {
     public String getTipoEsc() { return tipoEsc; }
     public void setTipoEsc(String tipoEsc) { this.tipoEsc = tipoEsc; }
 
-    public String getCodEsc() { return codEsc; }
-    public void setCodEsc(String codEsc) { this.codEsc = codEsc; }
+    public int getCodEsc() { return codEsc; }
+    public void setCodEsc(int codEsc) { this.codEsc = codEsc; }
 
     public String getNomEsc() { return nomEsc; }
     public void setNomEsc(String nomEsc) { this.nomEsc = nomEsc; }
