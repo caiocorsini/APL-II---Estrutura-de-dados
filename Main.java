@@ -62,14 +62,14 @@ public class Main {
         //System.out.println(CSVteste.getCSVescolas());
         CSVteste.getCSVescolas().forEach(escola -> escola.printEscolas(1));
 
+        /*
         // como será a inserção nas árvores (assumindo que CSV foi aberto, lido e tokenizado)
         for (int i = 0; i < CSVteste.getQtdEscolas(); i++) {
             Escola currentEscola = CSVteste.getCSVescolas().get(i);
-            Node currentNode = new Node(currentEscola);
-            // aqui, ou fazemos com que o proprio construtor do Node leia o codEscola da Escola e atribua o valor à chave, ou fazemos "manualmente"
-            arvoreAVL.insert(currentNode);
-            arvoreBST.insert(currentNode);
+            arvoreAVL.insert(currentEscola);
+            arvoreBST.insert(currentEscola);
         }
+             */
         
         // TESTES CAIO
         /*
