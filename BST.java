@@ -17,7 +17,8 @@ public class BST{
     private void inOrderTraversalAux(Node currentNode){
         if(currentNode == null) return;
         if(currentNode.hasLeftChild()) inOrderTraversalAux(currentNode.getLeft());
-        System.out.printf("%d ", currentNode.getData().getCodEsc());
+        //System.out.printf("%d ", currentNode.getData().getCodEsc());
+        System.out.println(currentNode.getData().getCodEsc());
         if(currentNode.hasRightChild()) inOrderTraversalAux(currentNode.getRight());
     }
 
@@ -29,7 +30,8 @@ public class BST{
 
     private void preOrderTraversalAux(Node currentNode){
         if(currentNode == null) return;
-        System.out.printf("%d ", currentNode.getData().getCodEsc());
+        //System.out.printf("%d ", currentNode.getData().getCodEsc());
+        System.out.println(currentNode.getData().getCodEsc());
         if(currentNode.hasLeftChild()) preOrderTraversalAux(currentNode.getLeft());
         if(currentNode.hasRightChild()) preOrderTraversalAux(currentNode.getRight());
     }
@@ -44,7 +46,8 @@ public class BST{
         if(currentNode == null) return;
         if(currentNode.hasLeftChild()) postOrderTraversalAux(currentNode.getLeft());
         if(currentNode.hasRightChild()) postOrderTraversalAux(currentNode.getRight());
-        System.out.printf("%d ", currentNode.getData().getCodEsc());
+        //System.out.printf("%d ", currentNode.getData().getCodEsc());
+        System.out.println(currentNode.getData().getCodEsc());
     }
 
     // Travessia em nível
@@ -58,7 +61,8 @@ public class BST{
         Queue<Node> queue = new LinkedList<>();  // Fila implementada com linked list
         queue.add(currentNode);
         while(!queue.isEmpty()){
-            System.out.printf("%d ", queue.peek().getData().getCodEsc());
+            //System.out.printf("%d ", queue.peek().getData().getCodEsc());
+            System.out.println(queue.peek().getData().getCodEsc());
             currentNode = queue.remove();
             if(currentNode.hasLeftChild()) queue.add(currentNode.getLeft());
             if(currentNode.hasRightChild()) queue.add(currentNode.getRight());
@@ -205,9 +209,9 @@ public class BST{
             return null;
 
         comparacoes += 1;
-        if (val < curr.getData()) {
+        if (val < curr.getData().getCodEsc()) {
             curr.setLeft(removeRec(curr.getLeft(), val , comparacoes));
-        } else if (val > curr.getData()) {
+        } else if (val > curr.getData().getCodEsc()) {
             curr.setRight(removeRec(curr.getRight(), val, comparacoes));
         } else {
             // se o nó é uma folha
@@ -220,7 +224,7 @@ public class BST{
             } else { // nó tem dois filhos
                 Node successor = getSuccessor(curr);
                 curr.setData(successor.getData());
-                curr.setRight(removeRec(curr.getRight(), successor.getData(), comparacoes));
+                curr.setRight(removeRec(curr.getRight(), successor.getData().getCodEsc(), comparacoes));
             }
 
         }
