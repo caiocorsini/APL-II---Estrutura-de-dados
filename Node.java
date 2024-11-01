@@ -1,12 +1,12 @@
 public class Node{
-    private int data;
+    private Escola data;
     private Node right;
     private Node left;
     private Node parent;
     private int height;
 
     // Construtor
-    Node(int data){
+    Node(Escola data){
         this.data = data;
         this.left = null;
         this.right = null;
@@ -14,8 +14,8 @@ public class Node{
         height = -1;
     }
 
-    public int getData() {return data;}
-    public void setData(int data) {this.data = data;}
+    public Escola getData() {return data;}
+    public void setData(Escola data) {this.data = data;}
     public Node getRight() {return right;}
     public void setRight(Node right) {this.right = right;}
     public Node getLeft() {return left;}

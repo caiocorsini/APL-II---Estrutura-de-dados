@@ -35,34 +35,33 @@ public class AVL extends BST{
         return rightRotate(currentRoot);
     }
 
-    void insertAVL(int value){
+    void insertAVL(Escola value){
         root = insertAVLAux(root,null,value);
     }
 
-    private Node insertAVLAux(Node currentNode, Node parentNode, int value){
-        //Node newNode = new Node(value);
-        //newNode.parent = parentNode;
+    private Node insertAVLAux(Node currentNode, Node parentNode, Escola value){
+
         if(currentNode == null){
             Node newNode = new Node(value);
             newNode.setParent(parentNode);
             return newNode;
         }
 
-        if(value<currentNode.getData()) {
+        if(value.getCodEsc()<currentNode.getData().getCodEsc()) {
             currentNode.setLeft(insertAVLAux(currentNode.getLeft(), currentNode, value));
             currentNode.updateHeight();
             if(currentNode.balancingFactor() == 2){
-                if(value<currentNode.getLeft().getData()) currentNode = rightRotate(currentNode);
-                else if(value>currentNode.getLeft().getData()) currentNode = leftRightRotate(currentNode);
+                if(value.getCodEsc()<currentNode.getLeft().getData().getCodEsc()) currentNode = rightRotate(currentNode);
+                else if(value.getCodEsc()>currentNode.getLeft().getData().getCodEsc()) currentNode = leftRightRotate(currentNode);
             }
         }
 
-        else if(value>currentNode.getData()){
+        else if(value.getCodEsc()>currentNode.getData().getCodEsc()){
             currentNode.setRight(insertAVLAux(currentNode.getRight(), currentNode, value));;
             currentNode.updateHeight();
             if(currentNode.balancingFactor() == -2){
-                if(value>currentNode.getRight().getData()) currentNode = leftRotate(currentNode);
-                else if(value<currentNode.getRight().getData()) currentNode = rightLeftRotate(currentNode);
+                if(value.getCodEsc()>currentNode.getRight().getData().getCodEsc()) currentNode = leftRotate(currentNode);
+                else if(value.getCodEsc()<currentNode.getRight().getData().getCodEsc()) currentNode = rightLeftRotate(currentNode);
             }
         }
         currentNode.updateHeight();
@@ -78,9 +77,9 @@ public class AVL extends BST{
     private Node removeNodeAVLAux(Node currentNode, int value) {
         if (currentNode == null) return currentNode; // Caso nao tenha nada para ser removido
         
-        if (value < currentNode.getData()) {  // Procurando pelo no a ser removido
+        if (value < currentNode.getData().getCodEsc()) {  // Procurando pelo no a ser removido
             currentNode.setLeft(removeNodeAVLAux(currentNode.getLeft(), value));
-        } else if (value > currentNode.getData()) {
+        } else if (value > currentNode.getData().getCodEsc()) {
             currentNode.setRight(removeNodeAVLAux(currentNode.getRight(), value));
         } else { 
     
@@ -105,7 +104,7 @@ public class AVL extends BST{
                 currentNode.setData(temp.getData());
     
                 // Deletando o sucessor
-                currentNode.setRight(removeNodeAVLAux(currentNode.getRight(), temp.getData()));
+                currentNode.setRight(removeNodeAVLAux(currentNode.getRight(), temp.getData().getCodEsc()));
             }
         }
     
@@ -129,8 +128,6 @@ public class AVL extends BST{
                 currentNode = rightLeftRotate(currentNode);
             }
         }
-    
         return currentNode;
     }
-
 }
