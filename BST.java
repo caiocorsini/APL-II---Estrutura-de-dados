@@ -190,4 +190,41 @@ public class BST{
             nodeToRemove.setData(successorData);
         }
     }
-}
+
+    /*
+    Realiza a remoção, e retorna o número de comparações realizadas
+    * */
+    public int removeContagem(int val) {
+        int comparacoes = 0;
+        root = removeRec(root, val, comparacoes);
+        return comparacoes;
+    }
+
+    private Node removeRec(Node curr, int val, int comparacoes) {
+        if (curr == null)
+            return null;
+
+        comparacoes += 1;
+        if (val < curr.getData()) {
+            curr.setLeft(removeRec(curr.getLeft(), val , comparacoes));
+        } else if (val > curr.getData()) {
+            curr.setRight(removeRec(curr.getRight(), val, comparacoes));
+        } else {
+            // se o nó é uma folha
+            if (curr.getLeft() == null && curr.getRight() == null) {
+                return null;
+            } else if (curr.getLeft() == null) { // nó tem somente um filho
+                return curr.getRight();
+            } else if (curr.getRight() == null) {
+                return curr.getLeft();
+            } else { // nó tem dois filhos
+                Node successor = getSuccessor(curr);
+                curr.setData(successor.getData());
+                curr.setRight(removeRec(curr.getRight(), successor.getData(), comparacoes));
+            }
+
+        }
+        return curr;
+    }
+
+} // BST
