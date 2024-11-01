@@ -17,7 +17,7 @@ public class BST{
     private void inOrderTraversalAux(Node currentNode){
         if(currentNode == null) return;
         if(currentNode.hasLeftChild()) inOrderTraversalAux(currentNode.getLeft());
-        System.out.printf("%d ", currentNode.getData());
+        System.out.printf("%d ", currentNode.getData().getCodEsc());
         if(currentNode.hasRightChild()) inOrderTraversalAux(currentNode.getRight());
     }
 
@@ -29,7 +29,7 @@ public class BST{
 
     private void preOrderTraversalAux(Node currentNode){
         if(currentNode == null) return;
-        System.out.printf("%d ", currentNode.getData());
+        System.out.printf("%d ", currentNode.getData().getCodEsc());
         if(currentNode.hasLeftChild()) preOrderTraversalAux(currentNode.getLeft());
         if(currentNode.hasRightChild()) preOrderTraversalAux(currentNode.getRight());
     }
@@ -44,7 +44,7 @@ public class BST{
         if(currentNode == null) return;
         if(currentNode.hasLeftChild()) postOrderTraversalAux(currentNode.getLeft());
         if(currentNode.hasRightChild()) postOrderTraversalAux(currentNode.getRight());
-        System.out.printf("%d ", currentNode.getData());
+        System.out.printf("%d ", currentNode.getData().getCodEsc());
     }
 
     // Travessia em nível
@@ -58,7 +58,7 @@ public class BST{
         Queue<Node> queue = new LinkedList<>();  // Fila implementada com linked list
         queue.add(currentNode);
         while(!queue.isEmpty()){
-            System.out.printf("%d ", queue.peek().getData());
+            System.out.printf("%d ", queue.peek().getData().getCodEsc());
             currentNode = queue.remove();
             if(currentNode.hasLeftChild()) queue.add(currentNode.getLeft());
             if(currentNode.hasRightChild()) queue.add(currentNode.getRight());
@@ -66,15 +66,15 @@ public class BST{
     }
 
     // Para inserir novos nós (sem respeitar AVL)
-    void insert(int value){
+    void insert(Escola value){
         root = insertAux(root, null, value);
     }
 
-    private Node insertAux(Node currentNode, Node parentNode, int value){
+    private Node insertAux(Node currentNode, Node parentNode, Escola value){
         Node newNode = new Node(value);
         newNode.setParent(parentNode);
         if(currentNode==null) return newNode;
-        if(value<currentNode.getData()) currentNode.setLeft(insertAux(currentNode.getLeft(), currentNode, value));
+        if(value.getCodEsc()<currentNode.getData().getCodEsc()) currentNode.setLeft(insertAux(currentNode.getLeft(), currentNode, value));
         else currentNode.setRight(insertAux(currentNode.getRight(), currentNode, value));
         return currentNode;
     }
@@ -87,9 +87,9 @@ public class BST{
     }
 
     private Node searchAux(Node currentNode, int value){
-        if(currentNode.getData() == value) return currentNode;
-        if(value>currentNode.getData()) return searchAux(currentNode.getRight(), value);
-        if(value<currentNode.getData()) return searchAux(currentNode.getLeft(), value);
+        if(currentNode.getData().getCodEsc() == value) return currentNode;
+        if(value>currentNode.getData().getCodEsc()) return searchAux(currentNode.getRight(), value);
+        if(value<currentNode.getData().getCodEsc()) return searchAux(currentNode.getLeft(), value);
         return null;
     }
 
@@ -102,16 +102,14 @@ public class BST{
     }
 
     private void searchContagemAux(Node currentNode, int value, Contagem n){
-        if(currentNode.getData() == value) return;
+        if(currentNode.getData().getCodEsc() == value) return;
         n.adicionar();
-        if(value>currentNode.getData()) searchContagemAux(currentNode.getRight(), value, n);
-        if(value<currentNode.getData()) searchContagemAux(currentNode.getLeft(), value, n);
+        if(value>currentNode.getData().getCodEsc()) searchContagemAux(currentNode.getRight(), value, n);
+        if(value<currentNode.getData().getCodEsc()) searchContagemAux(currentNode.getLeft(), value, n);
         return;
     }
 
 
-
-    // Retorna o maior elemento da arvore.
     Node getMax(){
         return getMaxAux(root);
     }
@@ -122,7 +120,7 @@ public class BST{
         else return currentNode;
     }
 
-    // Retorna o menor elemento da arvore.
+    // Retorna o node com o menor codigo de escola da arvore.
     Node getMin(){
         return getMinAux(root);
     }
@@ -158,8 +156,8 @@ public class BST{
 
 
     // Remove um nó com determinado valor
-    void removeNode(int value){
-        Node nodeToRemove = search(value);
+    void removeNode(Escola value){
+        Node nodeToRemove = search(value.getCodEsc());
         if(nodeToRemove == null) return;
         Node parentNode = nodeToRemove.getParent();
         if(nodeToRemove.isLeaf()){
@@ -187,7 +185,7 @@ public class BST{
         }
 
         if(nodeToRemove.getDegree() == 2){
-            int successorData = getSuccessor(nodeToRemove).getData();
+            Escola successorData = getSuccessor(nodeToRemove).getData();
             removeNode(successorData);
             nodeToRemove.setData(successorData);
         }
