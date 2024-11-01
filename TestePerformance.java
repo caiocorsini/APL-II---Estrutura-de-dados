@@ -38,7 +38,26 @@ public class TestePerformance {
 
         long startTime, endTime;
 
-        // busca
+        // busca na BST
+        int comparacoesBST = 0;
+        startTime = System.nanoTime();
+        for (int value :  data) {
+            comparacoesBST += bst.searchContagem(value);
+        }
+        endTime = System.nanoTime();
+        System.out.println("Tempo de busca na BST: " + (endTime - startTime));
+        System.out.println("Número de comparações BST: " + comparacoesBST);
+
+
+        // busca na AVL
+        int comparacoesAVL = 0;
+        startTime = System.nanoTime();
+        for (int value : data) {
+            comparacoesAVL += avl.searchContagem(value);
+        }
+        endTime = System.nanoTime();
+        System.out.println("Tempo de busca na AVL: " + (endTime - startTime));
+        System.out.println("Número de comparações AVL: " + comparacoesAVL);
 
     }
 
