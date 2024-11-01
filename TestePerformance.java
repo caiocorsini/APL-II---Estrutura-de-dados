@@ -57,8 +57,32 @@ public class TestePerformance {
         }
         endTime = System.nanoTime();
         System.out.println("Tempo de busca na AVL: " + (endTime - startTime));
-        System.out.println("Número de comparações AVL: " + comparacoesAVL);
+        System.out.println("Número de comparações (busca) AVL: " + comparacoesAVL);
 
+    }
+
+    public void testeRemocao(int[] valores) {
+        long startTime, endTime;
+
+        // remoção na BST
+        int comparacoesBST = 0;
+        startTime = System.nanoTime();
+        for (int value : valores) {
+            comparacoesBST += bst.removeContagem(value);
+        }
+        endTime = System.nanoTime();
+        System.out.println("Tempo de remoção BST: " + (endTime - startTime));
+        System.out.println("Numero de comparações (remoção) BST: " + comparacoesBST);
+
+        // remoção AVL
+        int comparacoesAVL = 0;
+        startTime = System.nanoTime();
+        for (int value : valores) {
+            comparacoesAVL += avl.removeContagem(value);
+        }
+        endTime = System.nanoTime();
+        System.out.println("Tempo de remoção AVL: " + (endTime - startTime));
+        System.out.println("Numero de comparações (remoção) AVL: " + comparacoesAVL);
     }
 
 
