@@ -109,7 +109,7 @@ public class BST{
         return;
     }
 
-    // Retorna o node com o maior codigo de escola da arvore.
+
     Node getMax(){
         return getMaxAux(root);
     }
