@@ -20,18 +20,21 @@ public class TestePerformance {
         long startTime, endTime;
     
         // Insertion in BST
+        int comparacoesBST = 0;
         startTime = System.nanoTime();
-        bst.insert(data);
+        comparacoesBST = bst.insertContagem(data);
         endTime = System.nanoTime();
         //System.out.println("Tempo de inserção BST: " + (endTime - startTime) + " ns");
-        resultados.add(new ResultadoOperacao("Inserção", "BST", endTime - startTime, 0));
+        resultados.add(new ResultadoOperacao("Inserção", "BST", endTime - startTime, comparacoesBST));
     
         // Insertion in AVL
+        int comparacoesAVL = 0;
         startTime = System.nanoTime();
+        comparacoesAVL = avl.insertContagem(data);
         avl.insertAVL(data);
         endTime = System.nanoTime();
         //System.out.println("Tempo de inserção AVL: " + (endTime - startTime) + " ns\n");
-        resultados.add(new ResultadoOperacao("Inserção", "AVL", endTime - startTime, 0));
+        resultados.add(new ResultadoOperacao("Inserção", "AVL", endTime - startTime, comparacoesAVL));
 
         return resultados;
     }
@@ -50,7 +53,7 @@ public class TestePerformance {
         endTime = System.nanoTime();
         // System.out.println("Tempo de busca na BST: " + (endTime - startTime) + " ns");
         // System.out.println("Número de comparações BST: " + comparacoesBST + "\n");
-        resultados.add(new ResultadoOperacao("Busca", "AVL", endTime - startTime, comparacoesBST));
+        resultados.add(new ResultadoOperacao("Busca", "BST", endTime - startTime, comparacoesBST));
     
         // AVL search
         int comparacoesAVL = 0;

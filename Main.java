@@ -1,5 +1,6 @@
 import java.util.List;
 
+
 public class Main {
     // Ctrl + k + c   para comentar varias linhas de uma vez só
     public static void main(String[] args) {
@@ -34,7 +35,7 @@ public class Main {
         // Pega a primeira BST e a primeira AVL das respectivas listas
         AVL primeiraAVL = databaseAVL.get(0);
         BST primeiraBST = databaseBST.get(0);
-        TestePerformance teste = new TestePerformance(primeiraBST, primeiraAVL);
+       //TestePerformance teste = new TestePerformance(primeiraBST, primeiraAVL);
 
         // Cria um objeto Escola com dados de exemplo
         Escola escolaExemplo = new Escola();
@@ -57,9 +58,12 @@ public class Main {
         escolaExemplo.setTotalTotalAl(30);
         escolaExemplo.setTotalTotalCl(5);
 
-       teste.testeInsercao(escolaExemplo);
-        teste.testeBusca(985004);
-        teste.testeRemocao(1234512345);
+    //    teste.testeInsercao(escolaExemplo);
+    //     teste.testeBusca(985004);
+    //     teste.testeRemocao(1234512345);
+        Resultado.exibirResultadoInsercao(escolaExemplo, primeiraBST, primeiraAVL);
+        Resultado.exibirResultadoBusca(1234512345, primeiraBST, primeiraAVL);
+        Resultado.exibirResultadoRemocao(1234512345, primeiraBST, primeiraAVL);
         
 
 
