@@ -65,6 +65,7 @@ public class CSVreader {
     }
 
     // abrir o arquivo
+    /*
     // arquivo precisa estar no MESMO DIRETORIO, argumento é o nome.csv
     public void openFile(String fileName) {
         try {
@@ -76,6 +77,19 @@ public class CSVreader {
             System.err.println("ERRO: " + e.getMessage());
         }
     }
+    */
+
+    public void openFile(String subdirectory, String fileName) {
+        try {
+            // combinar o diretorio e o nome do arquivo, pois a função espera completo
+            this.CSVfile = new File(subdirectory + File.separator + fileName);
+            if (!CSVfile.exists()) {
+                throw new FileNotFoundException("Arquivo " + fileName + " não encontrado em " + subdirectory);
+            }
+        } catch (FileNotFoundException e) {
+            System.err.println("ERRO: " + e.getMessage());
+        }
+    }    
 
     // ler o arquivo linha por linha e salvar cada linha em uma lista de Strings
     // lembrando que qtdLines vai ser = n, sendo que temos n-1 linhas de dados e 1 linha de header (logo, qtdEscola devera ser = qtdLines-1)
