@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class TestePerformance {
 
     // atributos
@@ -11,27 +14,33 @@ public class TestePerformance {
     }
 
     // métodos
-    public void testeInsercao(Escola data) {
-
+    public List<ResultadoOperacao> testeInsercao(Escola data) {
+        
+        List<ResultadoOperacao> resultados = new ArrayList<>();
         long startTime, endTime;
     
         // Insertion in BST
         startTime = System.nanoTime();
         bst.insert(data);
         endTime = System.nanoTime();
-        System.out.println("Tempo de inserção BST: " + (endTime - startTime) + " ns");
+        //System.out.println("Tempo de inserção BST: " + (endTime - startTime) + " ns");
+        resultados.add(new ResultadoOperacao("Inserção", "BST", endTime - startTime, 0));
     
         // Insertion in AVL
         startTime = System.nanoTime();
         avl.insertAVL(data);
         endTime = System.nanoTime();
-        System.out.println("Tempo de inserção AVL: " + (endTime - startTime) + " ns\n");
+        //System.out.println("Tempo de inserção AVL: " + (endTime - startTime) + " ns\n");
+        resultados.add(new ResultadoOperacao("Inserção", "AVL", endTime - startTime, 0));
+
+        return resultados;
     }
     
 
 
-    public void testeBusca(int codigoEscola) {
-
+    public List<ResultadoOperacao> testeBusca(int codigoEscola) {
+        
+        List<ResultadoOperacao> resultados = new ArrayList<>();
         long startTime, endTime;
     
         // BST search
@@ -39,20 +48,25 @@ public class TestePerformance {
         startTime = System.nanoTime();
         comparacoesBST = bst.searchContagem(codigoEscola);
         endTime = System.nanoTime();
-        System.out.println("Tempo de busca na BST: " + (endTime - startTime) + " ns");
-        System.out.println("Número de comparações BST: " + comparacoesBST + "\n");
+        // System.out.println("Tempo de busca na BST: " + (endTime - startTime) + " ns");
+        // System.out.println("Número de comparações BST: " + comparacoesBST + "\n");
+        resultados.add(new ResultadoOperacao("Busca", "AVL", endTime - startTime, comparacoesBST));
     
         // AVL search
         int comparacoesAVL = 0;
         startTime = System.nanoTime();
         comparacoesAVL = avl.searchContagem(codigoEscola);
         endTime = System.nanoTime();
-        System.out.println("Tempo de busca na AVL: " + (endTime - startTime) + " ns");
-        System.out.println("Número de comparações (busca) AVL: " + comparacoesAVL + "\n");
+        // System.out.println("Tempo de busca na AVL: " + (endTime - startTime) + " ns");
+        // System.out.println("Número de comparações (busca) AVL: " + comparacoesAVL + "\n");
+        resultados.add(new ResultadoOperacao("Busca", "AVL", endTime - startTime, comparacoesAVL));
+
+        return resultados;
     }
     
 
-    public void testeRemocao(int codigoEscola) {
+    public List<ResultadoOperacao> testeRemocao(int codigoEscola) {
+        List<ResultadoOperacao> resultados = new ArrayList<>();
         long startTime, endTime;
     
         // Removal in BST
@@ -60,16 +74,20 @@ public class TestePerformance {
         startTime = System.nanoTime();
         comparacoesBST = bst.removeContagem(codigoEscola);
         endTime = System.nanoTime();
-        System.out.println("Tempo de remoção BST: " + (endTime - startTime) + " ns");
-        System.out.println("Número de comparações (remoção) BST: " + comparacoesBST + "\n");
+        // System.out.println("Tempo de remoção BST: " + (endTime - startTime) + " ns");
+        // System.out.println("Número de comparações (remoção) BST: " + comparacoesBST + "\n");
+        resultados.add(new ResultadoOperacao("Remoção", "BST", endTime - startTime, comparacoesBST));
     
         // Removal in AVL
         int comparacoesAVL = 0;
         startTime = System.nanoTime();
         comparacoesAVL = avl.removeContagem(codigoEscola);
         endTime = System.nanoTime();
-        System.out.println("Tempo de remoção AVL: " + (endTime - startTime) + " ns");
-        System.out.println("Número de comparações (remoção) AVL: " + comparacoesAVL + "\n");
+        // System.out.println("Tempo de remoção AVL: " + (endTime - startTime) + " ns");
+        // System.out.println("Número de comparações (remoção) AVL: " + comparacoesAVL + "\n");
+        resultados.add(new ResultadoOperacao("Remoção", "AVL", endTime - startTime, comparacoesAVL));
+
+        return resultados;
     }
     
 
