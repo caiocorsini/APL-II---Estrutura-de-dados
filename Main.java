@@ -1,8 +1,35 @@
+import java.util.List;
+
 public class Main {
     // Ctrl + k + c   para comentar varias linhas de uma vez só
     public static void main(String[] args) {
 
+        // NOVOS TESTES ALAN
+        DatabaseManager database = new DatabaseManager();
+        database.setDirectory("datasets");
+        database.readDirectory();
+        database.loadCSVs();
+        database.createTrees();
+
+        List<AVL> databaseAVL = database.getAVLdatabase();
+        List<BST> databaseBST = database.getBSTdatabase();
+
+        int countAVL = 0;
+        for (AVL avlTree : databaseAVL) {
+            avlTree.inOrderTraversal();
+            countAVL++;
+        }
+
+        int countBST = 0;
+        for (BST bstTree : databaseBST) {
+            bstTree.inOrderTraversal();
+            countBST++;
+        }
+        System.out.println(countAVL);
+        System.out.println(countBST);
+
         // TESTES ALAN
+        /*
         CSVreader CSVteste = new CSVreader();
         CSVteste.openFile("/datasets/Alunos_Cel_2019_2.csv");
         CSVteste.readFile();
@@ -28,6 +55,7 @@ public class Main {
         
         System.out.printf("%d\n", arvoreAVL.root.getHeight());
         System.out.printf("%d\n", arvoreBST.root.getHeight());
+         */
     }
 
 
