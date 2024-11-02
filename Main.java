@@ -57,9 +57,9 @@ public class Main {
         escolaExemplo.setTotalTotalAl(30);
         escolaExemplo.setTotalTotalCl(5);
 
-       // teste.testeInsercao(escolaExemplo);
+       teste.testeInsercao(escolaExemplo);
         teste.testeBusca(985004);
-        //teste.testeRemocao(1234512345);
+        teste.testeRemocao(1234512345);
         
 
 
