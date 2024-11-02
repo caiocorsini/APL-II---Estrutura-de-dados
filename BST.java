@@ -199,36 +199,72 @@ public class BST{
     Realiza a remoção, e retorna o número de comparações realizadas
     * */
     public int removeContagem(int val) {
-        int comparacoes = 0;
+        int[] comparacoes = {0}; // Usamos um array para o contador
         root = removeRec(root, val, comparacoes);
-        return comparacoes;
+        return comparacoes[0]; // Retorna o número de comparações
     }
-
-    private Node removeRec(Node curr, int val, int comparacoes) {
-        if (curr == null)
+    
+    private Node removeRec(Node curr, int val, int[] comparacoes) {
+        if (curr == null) {
             return null;
-
-        comparacoes += 1;
+        }
+    
+        comparacoes[0]++; // Conta uma comparação
+    
         if (val < curr.getData().getCodEsc()) {
-            curr.setLeft(removeRec(curr.getLeft(), val , comparacoes));
+            curr.setLeft(removeRec(curr.getLeft(), val, comparacoes));
         } else if (val > curr.getData().getCodEsc()) {
             curr.setRight(removeRec(curr.getRight(), val, comparacoes));
         } else {
-            // se o nó é uma folha
+            // Nó encontrado, realizar a remoção
+    
+            // Caso 1: Nó é uma folha
             if (curr.getLeft() == null && curr.getRight() == null) {
                 return null;
-            } else if (curr.getLeft() == null) { // nó tem somente um filho
+            }
+            // Caso 2: Nó tem apenas um filho
+            else if (curr.getLeft() == null) {
                 return curr.getRight();
             } else if (curr.getRight() == null) {
                 return curr.getLeft();
-            } else { // nó tem dois filhos
+            }
+            // Caso 3: Nó tem dois filhos
+            else {
                 Node successor = getSuccessor(curr);
                 curr.setData(successor.getData());
                 curr.setRight(removeRec(curr.getRight(), successor.getData().getCodEsc(), comparacoes));
             }
-
         }
         return curr;
     }
+    
+    
+    
+
+
+    public int insertContagem(Escola val) {
+        int[] contador = {0}; // Usamos um array para passar o contador por referência
+        root = insertContagemAux(root, null, val, contador);
+        return contador[0]; // Retorna o número de comparações
+    }
+    
+    private Node insertContagemAux(Node currentNode, Node parentNode, Escola value, int[] contador) {
+        Node newNode = new Node(value);
+        newNode.setParent(parentNode);
+    
+        if (currentNode == null) {
+            return newNode;
+        }
+    
+        // Incrementa o contador para cada comparação
+        contador[0]++;
+        if (value.getCodEsc() < currentNode.getData().getCodEsc()) {
+            currentNode.setLeft(insertContagemAux(currentNode.getLeft(), currentNode, value, contador));
+        } else {
+            currentNode.setRight(insertContagemAux(currentNode.getRight(), currentNode, value, contador));
+        }
+        return currentNode;
+    }
+    
 
 } // BST

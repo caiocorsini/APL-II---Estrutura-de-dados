@@ -1,5 +1,6 @@
 import java.util.List;
 
+
 public class Main {
     // Ctrl + k + c   para comentar varias linhas de uma vez só
     public static void main(String[] args) {
@@ -16,17 +17,58 @@ public class Main {
 
         int countAVL = 0;
         for (AVL avlTree : databaseAVL) {
-            avlTree.inOrderTraversal();
+            //avlTree.inOrderTraversal();
             countAVL++;
         }
 
         int countBST = 0;
         for (BST bstTree : databaseBST) {
-            bstTree.inOrderTraversal();
+            //bstTree.inOrderTraversal();
             countBST++;
         }
-        System.out.println(countAVL);
-        System.out.println(countBST);
+       //System.out.println(countAVL);
+       // System.out.println(countBST);
+
+       
+        /* TESTES GILBERTO */ 
+
+        // Pega a primeira BST e a primeira AVL das respectivas listas
+        AVL primeiraAVL = databaseAVL.get(0);
+        BST primeiraBST = databaseBST.get(0);
+       //TestePerformance teste = new TestePerformance(primeiraBST, primeiraAVL);
+
+        // Cria um objeto Escola com dados de exemplo
+        Escola escolaExemplo = new Escola();
+        escolaExemplo.setCdRede("SP");
+        escolaExemplo.setDe("Diretoria de Ensino Sul 1");
+        escolaExemplo.setCodMun("3550308");
+        escolaExemplo.setMun("São Paulo");
+        escolaExemplo.setCateg("Regular");
+        escolaExemplo.setTipoEsc("Estadual");
+        escolaExemplo.setCodEsc(1234512345); // Este será o identificador chave
+        escolaExemplo.setNomEsc("Centro de Estudo de Línguas");
+        
+        // Preenche alguns dados de alunos e classes
+        escolaExemplo.setAlAlemaoDu(10);
+        escolaExemplo.setAlEspanholDu(20);
+        escolaExemplo.setTotalAlDu(30);
+        escolaExemplo.setClAlemaoDu(2);
+        escolaExemplo.setClEspanholDu(3);
+        escolaExemplo.setTotalClDu(5);
+        escolaExemplo.setTotalTotalAl(30);
+        escolaExemplo.setTotalTotalCl(5);
+
+    //    teste.testeInsercao(escolaExemplo);
+    //     teste.testeBusca(985004);
+    //     teste.testeRemocao(1234512345);
+        Resultado.exibirResultadoInsercao(escolaExemplo, primeiraBST, primeiraAVL);
+        Resultado.exibirResultadoBusca(1234512345, primeiraBST, primeiraAVL);
+        Resultado.exibirResultadoRemocao(1234512345, primeiraBST, primeiraAVL);
+        
+
+
+        
+
 
         // TESTES ALAN
         /*
