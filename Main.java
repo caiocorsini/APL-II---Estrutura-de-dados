@@ -4,7 +4,7 @@ public class Main {
 
         // TESTES ALAN
         CSVreader CSVteste = new CSVreader();
-        CSVteste.openFile("teste1.csv");
+        CSVteste.openFile("/datasets/Alunos_Cel_2019_2.csv");
         CSVteste.readFile();
         CSVteste.tokenizeFile();
 
@@ -29,4 +29,7 @@ public class Main {
         System.out.printf("%d\n", arvoreAVL.root.getHeight());
         System.out.printf("%d\n", arvoreBST.root.getHeight());
     }
-}
+
+
+
+} // Main

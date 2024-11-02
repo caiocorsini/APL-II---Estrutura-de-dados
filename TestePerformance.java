@@ -11,55 +11,67 @@ public class TestePerformance {
     }
 
     // métodos
-    public void testeInsercao(int[] data) {
+    public void testeInsercao(Escola data) {
 
         long startTime, endTime;
-
-        // inserção na BST
+    
+        // Insertion in BST
         startTime = System.nanoTime();
-        for (int value : data) {
-            bst.insert(value);
-        }
+        bst.insert(data);
         endTime = System.nanoTime();
         System.out.println("Tempo de inserção BST: " + (endTime - startTime) + " ns");
-
-
-        // inserção AVL
+    
+        // Insertion in AVL
         startTime = System.nanoTime();
-        for(int value : data) {
-            avl.insertAVL(value);
-        }
+        avl.insertAVL(data);
         endTime = System.nanoTime();
         System.out.println("Tempo de inserção AVL: " + (endTime - startTime) + " ns");
-
     }
+    
 
-    public void testeBusca(int[] data) {
+
+    public void testeBusca(int codigoEscola) {
 
         long startTime, endTime;
-
-        // busca na BST
+    
+        // BST search
         int comparacoesBST = 0;
         startTime = System.nanoTime();
-        for (int value :  data) {
-            comparacoesBST += bst.searchContagem(value);
-        }
+        comparacoesBST = bst.searchContagem(codigoEscola);
         endTime = System.nanoTime();
-        System.out.println("Tempo de busca na BST: " + (endTime - startTime));
+        System.out.println("Tempo de busca na BST: " + (endTime - startTime) + " ns");
         System.out.println("Número de comparações BST: " + comparacoesBST);
-
-
-        // busca na AVL
+    
+        // AVL search
         int comparacoesAVL = 0;
         startTime = System.nanoTime();
-        for (int value : data) {
-            comparacoesAVL += avl.searchContagem(value);
-        }
+        comparacoesAVL = avl.searchContagem(codigoEscola);
         endTime = System.nanoTime();
-        System.out.println("Tempo de busca na AVL: " + (endTime - startTime));
-        System.out.println("Número de comparações AVL: " + comparacoesAVL);
-
+        System.out.println("Tempo de busca na AVL: " + (endTime - startTime) + " ns");
+        System.out.println("Número de comparações (busca) AVL: " + comparacoesAVL);
     }
+    
+
+    public void testeRemocao(int codigoEscola) {
+        long startTime, endTime;
+    
+        // Removal in BST
+        int comparacoesBST = 0;
+        startTime = System.nanoTime();
+        comparacoesBST = bst.removeContagem(codigoEscola);
+        endTime = System.nanoTime();
+        System.out.println("Tempo de remoção BST: " + (endTime - startTime) + " ns");
+        System.out.println("Número de comparações (remoção) BST: " + comparacoesBST);
+    
+        // Removal in AVL
+        int comparacoesAVL = 0;
+        startTime = System.nanoTime();
+        comparacoesAVL = avl.removeContagem(codigoEscola);
+        endTime = System.nanoTime();
+        System.out.println("Tempo de remoção AVL: " + (endTime - startTime) + " ns");
+        System.out.println("Número de comparações (remoção) AVL: " + comparacoesAVL);
+    }
+    
 
 
 } // TestePerformance
