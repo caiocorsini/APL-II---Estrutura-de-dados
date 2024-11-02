@@ -49,19 +49,19 @@ public class DatabaseManager {
     }
 
     public List<String> getCSVfilenames() {
-        return new ArrayList<>(CSVfilenames); // Return a copy for safety
+        return new ArrayList<>(CSVfilenames); // retornar uma cópia para que a do manager não seja alterada
     }
 
     public List<CSVreader> getCSVdatabase() {
-        return new ArrayList<>(CSVdatabase); // Return a copy for safety
+        return new ArrayList<>(CSVdatabase);
     }
 
     public List<AVL> getAVLdatabase() {
-        return new ArrayList<>(AVLdatabase); // Return a copy for safety
+        return new ArrayList<>(AVLdatabase);
     }
 
     public List<BST> getBSTdatabase() {
-        return new ArrayList<>(BSTdatabase); // Return a copy for safety
+        return new ArrayList<>(BSTdatabase);
     }
 
     // metodos
