@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.List;
 
 
@@ -58,13 +59,18 @@ public class Main {
         escolaExemplo.setTotalTotalAl(30);
         escolaExemplo.setTotalTotalCl(5);
 
-    //    teste.testeInsercao(escolaExemplo);
-    //     teste.testeBusca(985004);
-    //     teste.testeRemocao(1234512345);
-        Resultado.exibirResultadoInsercao(escolaExemplo, primeiraBST, primeiraAVL);
-        Resultado.exibirResultadoBusca(1234512345, primeiraBST, primeiraAVL);
-        Resultado.exibirResultadoRemocao(1234512345, primeiraBST, primeiraAVL);
+
+        Resultado.exibirResultadoInsercao(escolaExemplo, databaseBST, databaseAVL);
+        Resultado.exibirResultadoBusca(1234512345, databaseBST, databaseAVL);
+        Resultado.exibirResultadoRemocao(1234512345, databaseBST, databaseAVL);
         
+        try {
+            CsvExporter.exportarResultados("resultados.csv", escolaExemplo, 1234512345, databaseBST, databaseAVL);
+            System.out.println("Exportação concluída com sucesso!");
+        } catch (IOException e) {
+            System.err.println("Erro ao exportar os resultados para o arquivo CSV: " + e.getMessage());
+        }
+
 
 
         
