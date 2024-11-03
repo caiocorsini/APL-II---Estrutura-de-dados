@@ -2,30 +2,45 @@ import java.util.List;
 
 public class Resultado {
 
-    // Método estático para testar e exibir o resultado da inserção
-    public static void exibirResultadoInsercao(Escola data, BST bst, AVL avl) {
-        TestePerformance teste = new TestePerformance(bst, avl);
-        List<ResultadoOperacao> resultados = teste.testeInsercao(data);
+    // Método estático para testar e exibir o resultado da inserção em múltiplas árvores
+    public static void exibirResultadoInsercao(Escola data, List<BST> bstList, List<AVL> avlList) {
+        for (int i = 0; i < bstList.size(); i++) {
+            BST bst = bstList.get(i);
+            AVL avl = avlList.get(i);
+            TestePerformance teste = new TestePerformance(bst, avl);
+            List<ResultadoOperacao> resultados = teste.testeInsercao(data);
 
-        // Exibe os resultados de inserção
-        resultados.forEach(System.out::println);
+            System.out.println("Resultados de Inserção para árvore #" + (i + 1) + ":");
+            resultados.forEach(System.out::println);
+            System.out.println(); // Adiciona uma linha em branco entre os resultados de cada árvore
+        }
     }
 
-    // Método estático para testar e exibir o resultado da busca
-    public static void exibirResultadoBusca(int codigoEscola, BST bst, AVL avl) {
-        TestePerformance teste = new TestePerformance(bst, avl);
-        List<ResultadoOperacao> resultados = teste.testeBusca(codigoEscola);
+    // Método estático para testar e exibir o resultado da busca em múltiplas árvores
+    public static void exibirResultadoBusca(int codigoEscola, List<BST> bstList, List<AVL> avlList) {
+        for (int i = 0; i < bstList.size(); i++) {
+            BST bst = bstList.get(i);
+            AVL avl = avlList.get(i);
+            TestePerformance teste = new TestePerformance(bst, avl);
+            List<ResultadoOperacao> resultados = teste.testeBusca(codigoEscola);
 
-        // Exibe os resultados de busca
-        resultados.forEach(System.out::println);
+            System.out.println("Resultados de Busca para árvore #" + (i + 1) + ":");
+            resultados.forEach(System.out::println);
+            System.out.println(); // Adiciona uma linha em branco entre os resultados de cada árvore
+        }
     }
 
-    // Método estático para testar e exibir o resultado da remoção
-    public static void exibirResultadoRemocao(int codigoEscola, BST bst, AVL avl) {
-        TestePerformance teste = new TestePerformance(bst, avl);
-        List<ResultadoOperacao> resultados = teste.testeRemocao(codigoEscola);
+    // Método estático para testar e exibir o resultado da remoção em múltiplas árvores
+    public static void exibirResultadoRemocao(int codigoEscola, List<BST> bstList, List<AVL> avlList) {
+        for (int i = 0; i < bstList.size(); i++) {
+            BST bst = bstList.get(i);
+            AVL avl = avlList.get(i);
+            TestePerformance teste = new TestePerformance(bst, avl);
+            List<ResultadoOperacao> resultados = teste.testeRemocao(codigoEscola);
 
-        // Exibe os resultados de remoção
-        resultados.forEach(System.out::println);
+            System.out.println("Resultados de Remoção para árvore #" + (i + 1) + ":");
+            resultados.forEach(System.out::println);
+            System.out.println(); // Adiciona uma linha em branco entre os resultados de cada árvore
+        }
     }
 }

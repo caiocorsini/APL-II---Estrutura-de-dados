@@ -25,7 +25,7 @@ public class TestePerformance {
         comparacoesBST = bst.insertContagem(data);
         endTime = System.nanoTime();
         //System.out.println("Tempo de inserção BST: " + (endTime - startTime) + " ns");
-        resultados.add(new ResultadoOperacao("Inserção", "BST", endTime - startTime, comparacoesBST));
+        resultados.add(new ResultadoOperacao("insercao", "BST", endTime - startTime, comparacoesBST));
     
         // Insertion in AVL
         int comparacoesAVL = 0;
@@ -34,7 +34,7 @@ public class TestePerformance {
         avl.insertAVL(data);
         endTime = System.nanoTime();
         //System.out.println("Tempo de inserção AVL: " + (endTime - startTime) + " ns\n");
-        resultados.add(new ResultadoOperacao("Inserção", "AVL", endTime - startTime, comparacoesAVL));
+        resultados.add(new ResultadoOperacao("insercao", "AVL", endTime - startTime, comparacoesAVL));
 
         return resultados;
     }
@@ -53,7 +53,7 @@ public class TestePerformance {
         endTime = System.nanoTime();
         // System.out.println("Tempo de busca na BST: " + (endTime - startTime) + " ns");
         // System.out.println("Número de comparações BST: " + comparacoesBST + "\n");
-        resultados.add(new ResultadoOperacao("Busca", "BST", endTime - startTime, comparacoesBST));
+        resultados.add(new ResultadoOperacao("busca", "BST", endTime - startTime, comparacoesBST));
     
         // AVL search
         int comparacoesAVL = 0;
@@ -62,7 +62,7 @@ public class TestePerformance {
         endTime = System.nanoTime();
         // System.out.println("Tempo de busca na AVL: " + (endTime - startTime) + " ns");
         // System.out.println("Número de comparações (busca) AVL: " + comparacoesAVL + "\n");
-        resultados.add(new ResultadoOperacao("Busca", "AVL", endTime - startTime, comparacoesAVL));
+        resultados.add(new ResultadoOperacao("busca", "AVL", endTime - startTime, comparacoesAVL));
 
         return resultados;
     }
@@ -79,7 +79,7 @@ public class TestePerformance {
         endTime = System.nanoTime();
         // System.out.println("Tempo de remoção BST: " + (endTime - startTime) + " ns");
         // System.out.println("Número de comparações (remoção) BST: " + comparacoesBST + "\n");
-        resultados.add(new ResultadoOperacao("Remoção", "BST", endTime - startTime, comparacoesBST));
+        resultados.add(new ResultadoOperacao("remocao", "BST", endTime - startTime, comparacoesBST));
     
         // Removal in AVL
         int comparacoesAVL = 0;
@@ -88,7 +88,7 @@ public class TestePerformance {
         endTime = System.nanoTime();
         // System.out.println("Tempo de remoção AVL: " + (endTime - startTime) + " ns");
         // System.out.println("Número de comparações (remoção) AVL: " + comparacoesAVL + "\n");
-        resultados.add(new ResultadoOperacao("Remoção", "AVL", endTime - startTime, comparacoesAVL));
+        resultados.add(new ResultadoOperacao("remocao", "AVL", endTime - startTime, comparacoesAVL));
 
         return resultados;
     }
