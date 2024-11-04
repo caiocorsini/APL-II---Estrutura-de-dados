@@ -60,17 +60,21 @@ public class Main {
         escolaExemplo.setTotalTotalCl(5);
 
 
-        Resultado.exibirResultadoInsercao(escolaExemplo, databaseBST, databaseAVL);
-        Resultado.exibirResultadoBusca(1234512345, databaseBST, databaseAVL);
-        Resultado.exibirResultadoRemocao(1234512345, databaseBST, databaseAVL);
+        // Resultado.exibirResultadoInsercao(escolaExemplo, databaseBST, databaseAVL);
+        // Resultado.exibirResultadoBusca(1234512345, databaseBST, databaseAVL);
+        // Resultado.exibirResultadoRemocao(1234512345, databaseBST, databaseAVL);
         
-        try {
-            CsvExporter.exportarResultados("resultados.csv", escolaExemplo, 1234512345, databaseBST, databaseAVL);
-            System.out.println("Exportação concluída com sucesso!");
-        } catch (IOException e) {
-            System.err.println("Erro ao exportar os resultados para o arquivo CSV: " + e.getMessage());
-        }
+        // try {
+        //     CsvExporter.exportarResultados("resultados.csv", escolaExemplo, 1234512345, databaseBST, databaseAVL);
+        //     System.out.println("Exportação concluída com sucesso!");
+        // } catch (IOException e) {
+        //     System.err.println("Erro ao exportar os resultados para o arquivo CSV: " + e.getMessage());
+        // }
 
+
+        // analise de alunos matriculados em curso de idiomas
+        AnaliseEscola analise = new AnaliseEscola(databaseBST);
+        analise.getAlInglesDuByDe("NORTE");
 
 
         
