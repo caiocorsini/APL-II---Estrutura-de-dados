@@ -1,9 +1,20 @@
+/**
+ * ESTRUTURA DE DADOS II
+ * TURMA 04P11
+ * APL 2
+ * ALAN MENIUK GLEIZER - 10416804
+ * CAIO VINICIUS CORSINI FILHO - 10342005
+ * GILBERTO DE MELO JÚNIOR - 10419275
+ * *
+ */
+
 public class Node{
+    // Atributos do Node
     private Escola data;
     private Node right;
     private Node left;
     private Node parent;
-    private int height;
+    private int height;  // Optei por armazenar a altura ao inves do fator de balanceamento
 
     // Construtor
     Node(Escola data){
@@ -14,6 +25,7 @@ public class Node{
         height = -1;
     }
 
+    // Getters e setters do Node
     public Escola getData() {return data;}
     public void setData(Escola data) {this.data = data;}
     public Node getRight() {return right;}
@@ -59,11 +71,13 @@ public class Node{
         return height;
     }
 
-    // Atualiza a altura de um determinado nó.
+    // Atualiza a altura de um determinado nó. Atualiza o valor do atributo.
     void updateHeight(){
         height = getHeightAux(this);
     }
 
+    // Funcao auxiliar para calcular a altura a partir de um determinado no.
+    // Pode ser usado na raiz da arvore para obter a altura da arvore inteira.
     private int getHeightAux(Node currentNode){
         if (currentNode == null) return -1; // Caso seja um nó vazio
         int leftHeight = getHeightAux(currentNode.left);
@@ -72,6 +86,7 @@ public class Node{
     }
 
     // Calcula o fator de balanceamento. Necessário para árvores AVL
+    // Neste caso, faz esquerda menos direita
     int balancingFactor() {
         int balanceLeft = hasLeftChild() ? this.left.getHeight() : -1;
         int balanceRight = hasRightChild() ? this.right.getHeight() : -1;

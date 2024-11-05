@@ -1,5 +1,16 @@
+/**
+ * ESTRUTURA DE DADOS II
+ * TURMA 04P11
+ * APL 2
+ * ALAN MENIUK GLEIZER - 10416804
+ * CAIO VINICIUS CORSINI FILHO - 10342005
+ * GILBERTO DE MELO JÚNIOR - 10419275
+ * *
+ */
+
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.ArrayList;
 public class BST{
     Node root;
 
@@ -9,60 +20,69 @@ public class BST{
     }
 
     // Travessia em ordem
-    void inOrderTraversal(){
-        if(root==null) return;
-        inOrderTraversalAux(root);
+    // Retorna uma ArrayList com todos os dados da arvore ao inves de imprimir. Para as analises de dados.
+    ArrayList<Node> inOrderTraversal() {
+        ArrayList<Node> resultList = new ArrayList<>();
+        if (root == null) return resultList;
+        inOrderTraversalAux(root, resultList);
+        return resultList;
     }
-
-    private void inOrderTraversalAux(Node currentNode){
-        if(currentNode == null) return;
-        if(currentNode.hasLeftChild()) inOrderTraversalAux(currentNode.getLeft());
-        //System.out.printf("%d ", currentNode.getData().getCodEsc());
-        System.out.println(currentNode.getData().getCodEsc());
-        if(currentNode.hasRightChild()) inOrderTraversalAux(currentNode.getRight());
+    
+    private void inOrderTraversalAux(Node currentNode, ArrayList<Node> resultList) {
+        if (currentNode == null) return;
+        if (currentNode.hasLeftChild()) inOrderTraversalAux(currentNode.getLeft(), resultList);
+        resultList.add(currentNode);
+        if (currentNode.hasRightChild()) inOrderTraversalAux(currentNode.getRight(), resultList);
     }
 
     // Travessia pre-ordem
-    void preOrderTraversal(){
-        if(root==null) return;
-        preOrderTraversalAux(root);
+    // Retorna uma ArrayList com todos os dados da arvore ao inves de imprimir. Para as analises de dados.
+    ArrayList<Node> preOrderTraversal(){
+        ArrayList<Node> resultList = new ArrayList<>();
+        if(root==null) return resultList;
+        preOrderTraversalAux(root, resultList);
+        return resultList;
     }
 
-    private void preOrderTraversalAux(Node currentNode){
+    private void preOrderTraversalAux(Node currentNode, ArrayList<Node> resultList){
         if(currentNode == null) return;
-        //System.out.printf("%d ", currentNode.getData().getCodEsc());
-        System.out.println(currentNode.getData().getCodEsc());
-        if(currentNode.hasLeftChild()) preOrderTraversalAux(currentNode.getLeft());
-        if(currentNode.hasRightChild()) preOrderTraversalAux(currentNode.getRight());
+        resultList.add(currentNode);
+        if(currentNode.hasLeftChild()) preOrderTraversalAux(currentNode.getLeft(), resultList);
+        if(currentNode.hasRightChild()) preOrderTraversalAux(currentNode.getRight(), resultList);
     }
 
     // Travessia pos-ordem
-    void postOrderTraversal(){
-        if(root==null) return;
-        postOrderTraversalAux(root);
+    // Retorna uma ArrayList com todos os dados da arvore ao inves de imprimir. Para as analises de dados.
+    ArrayList<Node> postOrderTraversal(){
+        ArrayList<Node> resultList = new ArrayList<>();
+        if(root==null) return resultList;
+        postOrderTraversalAux(root, resultList);
+        return resultList;
     }
 
-    private void postOrderTraversalAux(Node currentNode){
+    private void postOrderTraversalAux(Node currentNode, ArrayList<Node> resultList){
         if(currentNode == null) return;
-        if(currentNode.hasLeftChild()) postOrderTraversalAux(currentNode.getLeft());
-        if(currentNode.hasRightChild()) postOrderTraversalAux(currentNode.getRight());
-        //System.out.printf("%d ", currentNode.getData().getCodEsc());
-        System.out.println(currentNode.getData().getCodEsc());
+        if(currentNode.hasLeftChild()) postOrderTraversalAux(currentNode.getLeft(), resultList);
+        if(currentNode.hasRightChild()) postOrderTraversalAux(currentNode.getRight(), resultList);
+        resultList.add(currentNode);
     }
 
     // Travessia em nível
-    void levelOrderTraversal(){
-        if(root==null) return;
-        levelOrderTraversalAux(root);
+    // Retorna uma ArrayList com todos os dados da arvore ao inves de imprimir. Para as analises de dados.
+    ArrayList<Node> levelOrderTraversal(){
+        ArrayList<Node> resultList = new ArrayList<>();
+        if(root==null) return resultList;;
+        levelOrderTraversalAux(root, resultList);
+        return resultList;
     }
 
-    private void levelOrderTraversalAux(Node currentNode){
+    private void levelOrderTraversalAux(Node currentNode, ArrayList<Node> resultList){
         if(currentNode == null) return;
-        Queue<Node> queue = new LinkedList<>();  // Fila implementada com linked list
+        // Usa-se uma fila para auxiliar no processo do percurso por nivel
+        Queue<Node> queue = new LinkedList<>();  // Fila implementada com linked list.
         queue.add(currentNode);
-        while(!queue.isEmpty()){
-            //System.out.printf("%d ", queue.peek().getData().getCodEsc());
-            System.out.println(queue.peek().getData().getCodEsc());
+        while(!queue.isEmpty()){ // Enquanto a fila nao fica vazia, continua
+            resultList.add(currentNode);
             currentNode = queue.remove();
             if(currentNode.hasLeftChild()) queue.add(currentNode.getLeft());
             if(currentNode.hasRightChild()) queue.add(currentNode.getRight());
@@ -78,6 +98,7 @@ public class BST{
         Node newNode = new Node(value);
         newNode.setParent(parentNode);
         if(currentNode==null) return newNode;
+        // Verifica qual lado eh menor e qual eh maior para determinar onde inserir
         if(value.getCodEsc()<currentNode.getData().getCodEsc()) currentNode.setLeft(insertAux(currentNode.getLeft(), currentNode, value));
         else currentNode.setRight(insertAux(currentNode.getRight(), currentNode, value));
         return currentNode;
@@ -90,14 +111,18 @@ public class BST{
         return searchAux(root, value);
     }
 
+    // Auxiliar de search()
     private Node searchAux(Node currentNode, int value){
-        if(currentNode.getData().getCodEsc() == value) return currentNode;
+        if(currentNode.getData().getCodEsc() == value) return currentNode;  // Caso tenha encontrado o valor
+        // Verifica qual lado eh menor e qual eh maior para determinar onde inserir
         if(value>currentNode.getData().getCodEsc()) return searchAux(currentNode.getRight(), value);
         if(value<currentNode.getData().getCodEsc()) return searchAux(currentNode.getLeft(), value);
         return null;
     }
 
     // Busca por elementos na arvore
+    // Tambem busca por Node, mas ao inves de retornar o Node, retorna a quantidade de passos para chegar nele
+    // Usado para as analises de performance
     int searchContagem(int value){
         if(root==null) return 0;
         Contagem n = new Contagem();
@@ -105,6 +130,7 @@ public class BST{
         return n.getN();
     }
 
+    // Auxiliar de searchContagem
     private void searchContagemAux(Node currentNode, int value, Contagem n){
         if(currentNode.getData().getCodEsc() == value) return;
         n.adicionar();
@@ -113,25 +139,29 @@ public class BST{
         return;
     }
 
-
+    // Retorna o maior elemento da arvore
     Node getMax(){
         return getMaxAux(root);
     }
 
+    // Auxiliar de getMax
+    // Tambem pode ser usado para pegar o maior elemento de uma subarvore especificamente
     private Node getMaxAux(Node currentNode){
         if(currentNode == null) return null;
-        if(currentNode.hasRightChild()) return getMaxAux(currentNode.getRight());
+        if(currentNode.hasRightChild()) return getMaxAux(currentNode.getRight());  // Percorre continuamente para a direita
         else return currentNode;
     }
 
-    // Retorna o node com o menor codigo de escola da arvore.
+    // Retorna o menor elemento da arvore
     Node getMin(){
         return getMinAux(root);
     }
 
+    // Auxiliar de getMin
+    // Tambem pode ser usado para pegar o menor elemento de uma subarvore especificamente
     private Node getMinAux(Node currentNode){
         if(currentNode == null) return null;
-        if(currentNode.hasLeftChild()) return getMinAux(currentNode.getLeft());
+        if(currentNode.hasLeftChild()) return getMinAux(currentNode.getLeft());  // Percorre continuamente para a esquerda
         else return currentNode;
     }
 
@@ -161,43 +191,44 @@ public class BST{
 
     // Remove um nó com determinado valor
     void removeNode(Escola value){
-        Node nodeToRemove = search(value.getCodEsc());
-        if(nodeToRemove == null) return;
-        Node parentNode = nodeToRemove.getParent();
-        if(nodeToRemove.isLeaf()){
+        Node nodeToRemove = search(value.getCodEsc());  // Primeiro procura o Node em si, reutiliizando a funcao search
+        if(nodeToRemove == null) return;  // Caso nao ache o Node para remover
+        Node parentNode = nodeToRemove.getParent();  // Pega o pai de quem vai ser removido. Necessario para a atualizacao das referencias.
+        if(nodeToRemove.isLeaf()){  // Caso 1:  Se o removido for uma folha
             if(parentNode != null){
+                // Atualiza referencias do Node pai do removido
                 if(parentNode.getRight() == nodeToRemove) parentNode.setRight(null);
                 else if(parentNode.getLeft() == nodeToRemove) parentNode.setLeft(null);
             } else root = null;
             return;
         }
 
+        // Caso 2:  Se o Node removido tem apenas um filho
         if(nodeToRemove.getDegree() == 1){
-            nodeToRemove.setParent(null);
+            nodeToRemove.setParent(null);  // Remove referencia ao pai do removido
             Node aux;
-            if(nodeToRemove.hasLeftChild()) {
+            if(nodeToRemove.hasLeftChild()) {  // Se o unico filho esta a esquerda do removido
                 aux = nodeToRemove.getLeft();
-                nodeToRemove.setLeft(null);
+                nodeToRemove.setLeft(null);  // Remove referencia a esquerda do removido
             }
-            else {
+            else {  // Se o unico filho esta a direita do removido
                 aux = nodeToRemove.getRight();
-                nodeToRemove.setRight(null);
+                nodeToRemove.setRight(null);  // Remove referencia a direita do removido
             }
+            // Atualizacao das referencias dos Nodes
             if(parentNode.getRight() == nodeToRemove) parentNode.setRight(aux);
             if(parentNode.getLeft() == nodeToRemove) parentNode.setLeft(aux);
             return;
         }
 
-        if(nodeToRemove.getDegree() == 2){
-            Escola successorData = getSuccessor(nodeToRemove).getData();
+        if(nodeToRemove.getDegree() == 2){  //Caso 3: Se o removido tem 2 filhos
+            Escola successorData = getSuccessor(nodeToRemove).getData();  // Removido troca de dado com o sucessor (antecessor tambem funcionaria)
             removeNode(successorData);
-            nodeToRemove.setData(successorData);
+            nodeToRemove.setData(successorData);  // Apos a troca, remove o sucessor (o qual agora esta com o dado do removido)
         }
     }
 
-    /*
-    Realiza a remoção, e retorna o número de comparações realizadas
-    * */
+    // Funcao de remocao usada para contar numero de comparacoes
     public int removeContagem(int val) {
         int[] comparacoes = {0}; // Usamos um array para o contador
         root = removeRec(root, val, comparacoes);
@@ -237,11 +268,8 @@ public class BST{
         }
         return curr;
     }
-    
-    
-    
 
-
+    // Funcao de insercao usada para contar numero de comparacoes
     public int insertContagem(Escola val) {
         int[] contador = {0}; // Usamos um array para passar o contador por referência
         root = insertContagemAux(root, null, val, contador);
@@ -266,5 +294,4 @@ public class BST{
         return currentNode;
     }
     
-
 } // BST
