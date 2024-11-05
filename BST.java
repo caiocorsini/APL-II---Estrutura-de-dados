@@ -1,5 +1,6 @@
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.ArrayList;
 public class BST{
     Node root;
 
@@ -9,60 +10,64 @@ public class BST{
     }
 
     // Travessia em ordem
-    void inOrderTraversal(){
-        if(root==null) return;
-        inOrderTraversalAux(root);
+    ArrayList<Node> inOrderTraversal() {
+        ArrayList<Node> resultList = new ArrayList<>();
+        if (root == null) return resultList;
+        inOrderTraversalAux(root, resultList);
+        return resultList;
     }
-
-    private void inOrderTraversalAux(Node currentNode){
-        if(currentNode == null) return;
-        if(currentNode.hasLeftChild()) inOrderTraversalAux(currentNode.getLeft());
-        //System.out.printf("%d ", currentNode.getData().getCodEsc());
-        System.out.println(currentNode.getData().getCodEsc());
-        if(currentNode.hasRightChild()) inOrderTraversalAux(currentNode.getRight());
+    
+    private void inOrderTraversalAux(Node currentNode, ArrayList<Node> resultList) {
+        if (currentNode == null) return;
+        if (currentNode.hasLeftChild()) inOrderTraversalAux(currentNode.getLeft(), resultList);
+        resultList.add(currentNode);
+        if (currentNode.hasRightChild()) inOrderTraversalAux(currentNode.getRight(), resultList);
     }
 
     // Travessia pre-ordem
-    void preOrderTraversal(){
-        if(root==null) return;
-        preOrderTraversalAux(root);
+    ArrayList<Node> preOrderTraversal(){
+        ArrayList<Node> resultList = new ArrayList<>();
+        if(root==null) return resultList;
+        preOrderTraversalAux(root, resultList);
+        return resultList;
     }
 
-    private void preOrderTraversalAux(Node currentNode){
+    private void preOrderTraversalAux(Node currentNode, ArrayList<Node> resultList){
         if(currentNode == null) return;
-        //System.out.printf("%d ", currentNode.getData().getCodEsc());
-        System.out.println(currentNode.getData().getCodEsc());
-        if(currentNode.hasLeftChild()) preOrderTraversalAux(currentNode.getLeft());
-        if(currentNode.hasRightChild()) preOrderTraversalAux(currentNode.getRight());
+        resultList.add(currentNode);
+        if(currentNode.hasLeftChild()) preOrderTraversalAux(currentNode.getLeft(), resultList);
+        if(currentNode.hasRightChild()) preOrderTraversalAux(currentNode.getRight(), resultList);
     }
 
     // Travessia pos-ordem
-    void postOrderTraversal(){
-        if(root==null) return;
-        postOrderTraversalAux(root);
+    ArrayList<Node> postOrderTraversal(){
+        ArrayList<Node> resultList = new ArrayList<>();
+        if(root==null) return resultList;
+        postOrderTraversalAux(root, resultList);
+        return resultList;
     }
 
-    private void postOrderTraversalAux(Node currentNode){
+    private void postOrderTraversalAux(Node currentNode, ArrayList<Node> resultList){
         if(currentNode == null) return;
-        if(currentNode.hasLeftChild()) postOrderTraversalAux(currentNode.getLeft());
-        if(currentNode.hasRightChild()) postOrderTraversalAux(currentNode.getRight());
-        //System.out.printf("%d ", currentNode.getData().getCodEsc());
-        System.out.println(currentNode.getData().getCodEsc());
+        if(currentNode.hasLeftChild()) postOrderTraversalAux(currentNode.getLeft(), resultList);
+        if(currentNode.hasRightChild()) postOrderTraversalAux(currentNode.getRight(), resultList);
+        resultList.add(currentNode);
     }
 
     // Travessia em nível
-    void levelOrderTraversal(){
-        if(root==null) return;
-        levelOrderTraversalAux(root);
+    ArrayList<Node> levelOrderTraversal(){
+        ArrayList<Node> resultList = new ArrayList<>();
+        if(root==null) return resultList;;
+        levelOrderTraversalAux(root, resultList);
+        return resultList;
     }
 
-    private void levelOrderTraversalAux(Node currentNode){
+    private void levelOrderTraversalAux(Node currentNode, ArrayList<Node> resultList){
         if(currentNode == null) return;
         Queue<Node> queue = new LinkedList<>();  // Fila implementada com linked list
         queue.add(currentNode);
         while(!queue.isEmpty()){
-            //System.out.printf("%d ", queue.peek().getData().getCodEsc());
-            System.out.println(queue.peek().getData().getCodEsc());
+            resultList.add(currentNode);
             currentNode = queue.remove();
             if(currentNode.hasLeftChild()) queue.add(currentNode.getLeft());
             if(currentNode.hasRightChild()) queue.add(currentNode.getRight());
