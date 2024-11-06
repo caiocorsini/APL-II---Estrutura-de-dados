@@ -1,6 +1,10 @@
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.*;
 
 public class AnaliseEscola {
 
@@ -69,4 +73,42 @@ public class AnaliseEscola {
         return totalPorDiretoria;
     }
 
-}
+    // Método para exportar dados de todas as árvores BST para um CSV
+    public static void exportarDadosParaCSV(String filePath, List<BST> databaseBST) {
+        try (PrintWriter writer = new PrintWriter(new FileWriter(filePath))) {
+            // Escreve o cabeçalho
+            writer.println("DIRETORIA_ENSINO,SEMESTRE,ALUNOS_INGLES,ALUNOS_ESPANHOL,ALUNOS_FRANCES,ALUNOS_MANDARIM");
+
+            for (int i = 0; i < databaseBST.size(); i++) {
+                BST bstTree = databaseBST.get(i);
+                AnaliseEscola analise = new AnaliseEscola(bstTree);
+
+                // Calcula o ano e o semestre
+                int year = 2019 + (i / 2);
+                int semester = (i % 2) + 1;
+                String semestre = year + "-" + semester;
+
+                // Obtém os totais de alunos por diretoria e idioma
+                Map<String, Integer> alunosIngles = analise.getAlunosParaTodasDiretorias("ingles");
+                Map<String, Integer> alunosEspanhol = analise.getAlunosParaTodasDiretorias("espanhol");
+                Map<String, Integer> alunosFrances = analise.getAlunosParaTodasDiretorias("frances");
+                Map<String, Integer> alunosMandarim = analise.getAlunosParaTodasDiretorias("chines");
+
+                // Itera pelas diretorias e escreve os dados no CSV
+                for (String diretoria : alunosIngles.keySet()) {
+                    int totalIngles = alunosIngles.getOrDefault(diretoria, 0);
+                    int totalEspanhol = alunosEspanhol.getOrDefault(diretoria, 0);
+                    int totalFrances = alunosFrances.getOrDefault(diretoria, 0);
+                    int totalMandarim = alunosMandarim.getOrDefault(diretoria, 0);
+
+                    writer.println(diretoria + "," + semestre + "," + totalIngles + "," + totalEspanhol + "," + totalFrances + "," + totalMandarim);
+                }
+            }
+            System.out.println("Arquivo CSV gerado com sucesso em: " + filePath);
+        } catch (IOException e) {
+            System.err.println("Erro ao escrever no arquivo CSV: " + e.getMessage());
+        }
+    }
+   
+
+} // AnaliseEscola

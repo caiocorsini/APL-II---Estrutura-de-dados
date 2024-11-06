@@ -111,6 +111,13 @@ public class Main {
             }
             System.out.println(); // Linha em branco para separar cada semestre
         }
+
+
+        String filePath = "resultados_escolas.csv";
+
+        AnaliseEscola.exportarDadosParaCSV(filePath, databaseBST);
+
+
         
         // TESTES ALAN
         /*
