@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Collections; // para ordenação
 
 // para ler um diretorio
 import java.io.IOException;
@@ -87,8 +88,12 @@ public class DatabaseManager {
             System.err.println("ERRO: falha na leitura do diretório. " + e.getMessage());
         }
 
+        // ordenação dos filenames. não parece necessária, pois foram lidos em ordem lexicográfica em todos os testes em windows, mac e ubunto, mas pela documentação a leitura não é garantidamente alfabéttica
+        Collections.sort(csvFiles);
+
         // atualizar lista e qtd de arquivos do objeto
         this.CSVfilenames = csvFiles;
+        // System.out.println(CSVfilenames); // para testes
         this.CSVqtd = csvFiles.size();
     }
 

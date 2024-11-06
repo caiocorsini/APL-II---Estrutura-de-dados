@@ -112,8 +112,6 @@ public class Main {
             System.out.println(); // Linha em branco para separar cada semestre
         }
         
-
-
         // TESTES ALAN
         /*
         CSVreader CSVteste = new CSVreader();
