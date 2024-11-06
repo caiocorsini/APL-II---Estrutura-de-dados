@@ -1,5 +1,6 @@
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 
 public class Main {
@@ -60,19 +61,56 @@ public class Main {
         escolaExemplo.setTotalTotalCl(5);
 
 
-        Resultado.exibirResultadoInsercao(escolaExemplo, databaseBST, databaseAVL);
-        Resultado.exibirResultadoBusca(1234512345, databaseBST, databaseAVL);
-        Resultado.exibirResultadoRemocao(1234512345, databaseBST, databaseAVL);
+        // Resultado.exibirResultadoInsercao(escolaExemplo, databaseBST, databaseAVL);
+        // Resultado.exibirResultadoBusca(1234512345, databaseBST, databaseAVL);
+        // Resultado.exibirResultadoRemocao(1234512345, databaseBST, databaseAVL);
         
-        try {
-            CsvExporter.exportarResultados("resultados.csv", escolaExemplo, 1234512345, databaseBST, databaseAVL);
-            System.out.println("Exportação concluída com sucesso!");
-        } catch (IOException e) {
-            System.err.println("Erro ao exportar os resultados para o arquivo CSV: " + e.getMessage());
+        // try {
+        //     CsvExporter.exportarResultados("resultados.csv", escolaExemplo, 1234512345, databaseBST, databaseAVL);
+        //     System.out.println("Exportação concluída com sucesso!");
+        // } catch (IOException e) {
+        //     System.err.println("Erro ao exportar os resultados para o arquivo CSV: " + e.getMessage());
+        // }
+
+
+        // for (BST bstTree : databaseBST ) {
+        //     AnaliseEscola analise = new AnaliseEscola(bstTree);
+        //     System.out.println(analise.getAlunosPorDiretoria("LESTE 1", "espanhol"));
+        // }
+    
+
+        // for (BST bstTree : databaseBST) {
+        //     AnaliseEscola analise = new AnaliseEscola(bstTree);
+        //     String idioma = "espanhol";
+        //     Map<String, Integer> alunosPorDiretoria = analise.getAlunosParaTodasDiretorias(idioma);
+        //     // Imprime o total de alunos por diretoria
+        //     System.out.println("Total de alunos no idioma " + idioma + " por diretoria:");
+        //     for (Map.Entry<String, Integer> entry : alunosPorDiretoria.entrySet()) {
+        //         System.out.println("Diretoria: " + entry.getKey() + " - Total de Alunos: " + entry.getValue());
+        //     }   
+        // }
+
+        String idioma = "ingles";
+
+        for (int i = 0; i < databaseBST.size(); i++) {
+            BST bstTree = databaseBST.get(i);
+            AnaliseEscola analise = new AnaliseEscola(bstTree);
+
+            // Calcula o ano e o semestre
+            int year = 2019 + (i / 2);
+            int semester = (i % 2) + 1;
+
+            // Obtém o total de alunos para todas as diretorias no idioma especificado
+            Map<String, Integer> alunosPorDiretoria = analise.getAlunosParaTodasDiretorias(idioma);
+
+            // Imprime o resultado com a informação de ano e semestre
+            System.out.println("Ano: " + year + " - Semestre: " + semester);
+            System.out.println("Total de alunos no idioma " + idioma + " por diretoria:");
+            for (Map.Entry<String, Integer> entry : alunosPorDiretoria.entrySet()) {
+                System.out.println("Diretoria: " + entry.getKey() + " - Total de Alunos: " + entry.getValue());
+            }
+            System.out.println(); // Linha em branco para separar cada semestre
         }
-
-
-
         
 
 

@@ -20,15 +20,19 @@ public class CsvExporter {
                 // Inserção na BST
                 List<ResultadoOperacao> resultadosInsercaoBST = teste.testeInsercao(data);
                 for (ResultadoOperacao resultado : resultadosInsercaoBST) {
-                    writer.write(resultado.getTipoOperacao() + ",BST,BST #" + (i + 1) + ","
-                            + resultado.getTempoOperacao() + "," + resultado.getComparacoes() + "\n");
+                    if (resultado.getTipoArvore().equals("BST")) {  // Filtra resultados da BST
+                        writer.write(resultado.getTipoOperacao() + ",BST,BST #" + (i + 1) + ","
+                                + resultado.getTempoOperacao() + "," + resultado.getComparacoes() + "\n");
+                    }
                 }
 
                 // Inserção na AVL
                 List<ResultadoOperacao> resultadosInsercaoAVL = teste.testeInsercao(data);
                 for (ResultadoOperacao resultado : resultadosInsercaoAVL) {
-                    writer.write(resultado.getTipoOperacao() + ",AVL,AVL #" + (i + 1) + ","
-                            + resultado.getTempoOperacao() + "," + resultado.getComparacoes() + "\n");
+                    if (resultado.getTipoArvore().equals("AVL")) {  // Filtra resultados da AVL
+                        writer.write(resultado.getTipoOperacao() + ",AVL,AVL #" + (i + 1) + ","
+                                + resultado.getTempoOperacao() + "," + resultado.getComparacoes() + "\n");
+                    }
                 }
             }
 
@@ -41,15 +45,19 @@ public class CsvExporter {
                 // Busca na BST
                 List<ResultadoOperacao> resultadosBuscaBST = teste.testeBusca(codigoEscola);
                 for (ResultadoOperacao resultado : resultadosBuscaBST) {
-                    writer.write(resultado.getTipoOperacao() + ",BST,BST #" + (i + 1) + ","
-                            + resultado.getTempoOperacao() + "," + resultado.getComparacoes() + "\n");
+                    if (resultado.getTipoArvore().equals("BST")) {  // Filtra resultados da BST
+                        writer.write(resultado.getTipoOperacao() + ",BST,BST #" + (i + 1) + ","
+                                + resultado.getTempoOperacao() + "," + resultado.getComparacoes() + "\n");
+                    }
                 }
 
                 // Busca na AVL
                 List<ResultadoOperacao> resultadosBuscaAVL = teste.testeBusca(codigoEscola);
                 for (ResultadoOperacao resultado : resultadosBuscaAVL) {
-                    writer.write(resultado.getTipoOperacao() + ",AVL,AVL #" + (i + 1) + ","
-                            + resultado.getTempoOperacao() + "," + resultado.getComparacoes() + "\n");
+                    if (resultado.getTipoArvore().equals("AVL")) {  // Filtra resultados da AVL
+                        writer.write(resultado.getTipoOperacao() + ",AVL,AVL #" + (i + 1) + ","
+                                + resultado.getTempoOperacao() + "," + resultado.getComparacoes() + "\n");
+                    }
                 }
             }
 
@@ -62,15 +70,19 @@ public class CsvExporter {
                 // Remoção na BST
                 List<ResultadoOperacao> resultadosRemocaoBST = teste.testeRemocao(codigoEscola);
                 for (ResultadoOperacao resultado : resultadosRemocaoBST) {
-                    writer.write(resultado.getTipoOperacao() + ",BST,BST #" + (i + 1) + ","
-                            + resultado.getTempoOperacao() + "," + resultado.getComparacoes() + "\n");
+                    if (resultado.getTipoArvore().equals("BST")) {  // Filtra resultados da BST
+                        writer.write(resultado.getTipoOperacao() + ",BST,BST #" + (i + 1) + ","
+                                + resultado.getTempoOperacao() + "," + resultado.getComparacoes() + "\n");
+                    }
                 }
 
                 // Remoção na AVL
                 List<ResultadoOperacao> resultadosRemocaoAVL = teste.testeRemocao(codigoEscola);
                 for (ResultadoOperacao resultado : resultadosRemocaoAVL) {
-                    writer.write(resultado.getTipoOperacao() + ",AVL,AVL #" + (i + 1) + ","
-                            + resultado.getTempoOperacao() + "," + resultado.getComparacoes() + "\n");
+                    if (resultado.getTipoArvore().equals("AVL")) {  // Filtra resultados da AVL
+                        writer.write(resultado.getTipoOperacao() + ",AVL,AVL #" + (i + 1) + ","
+                                + resultado.getTempoOperacao() + "," + resultado.getComparacoes() + "\n");
+                    }
                 }
             }
         }
