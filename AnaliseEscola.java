@@ -36,9 +36,7 @@ public class AnaliseEscola {
                     totalAlunos += escola.getAlEspanholDu();
                 } else if (idioma.equalsIgnoreCase("frances")) {
                     totalAlunos += escola.getAlFrancesDu();
-                } else if (idioma.equalsIgnoreCase("chines")) {
-                    totalAlunos += escola.getAlMandarimDu();
-                }          
+                }        
             }
         }
 
@@ -62,10 +60,9 @@ public class AnaliseEscola {
                 alunos = escola.getAlEspanholDu();
             } else if (idioma.equalsIgnoreCase("frances")) {
                 alunos = escola.getAlFrancesDu();
-            } else if (idioma.equalsIgnoreCase("chines")) {
-                alunos = escola.getAlMandarimDu();
-            }
+            
 
+            }
             // Atualiza o total para a diretoria no mapa
             totalPorDiretoria.put(diretoria, totalPorDiretoria.getOrDefault(diretoria, 0) + alunos);
         }
@@ -77,7 +74,7 @@ public class AnaliseEscola {
     public static void exportarDadosParaCSV(String filePath, List<BST> databaseBST) {
         try (PrintWriter writer = new PrintWriter(new FileWriter(filePath))) {
             // Escreve o cabeçalho
-            writer.println("DIRETORIA_ENSINO,SEMESTRE,ALUNOS_INGLES,ALUNOS_ESPANHOL,ALUNOS_FRANCES,ALUNOS_MANDARIM");
+            writer.println("DIRETORIA_ENSINO,SEMESTRE,ALUNOS_INGLES,ALUNOS_ESPANHOL,ALUNOS_FRANCES");
 
             for (int i = 0; i < databaseBST.size(); i++) {
                 BST bstTree = databaseBST.get(i);
@@ -92,16 +89,15 @@ public class AnaliseEscola {
                 Map<String, Integer> alunosIngles = analise.getAlunosParaTodasDiretorias("ingles");
                 Map<String, Integer> alunosEspanhol = analise.getAlunosParaTodasDiretorias("espanhol");
                 Map<String, Integer> alunosFrances = analise.getAlunosParaTodasDiretorias("frances");
-                Map<String, Integer> alunosMandarim = analise.getAlunosParaTodasDiretorias("chines");
 
                 // Itera pelas diretorias e escreve os dados no CSV
                 for (String diretoria : alunosIngles.keySet()) {
                     int totalIngles = alunosIngles.getOrDefault(diretoria, 0);
                     int totalEspanhol = alunosEspanhol.getOrDefault(diretoria, 0);
                     int totalFrances = alunosFrances.getOrDefault(diretoria, 0);
-                    int totalMandarim = alunosMandarim.getOrDefault(diretoria, 0);
+     
 
-                    writer.println(diretoria + "," + semestre + "," + totalIngles + "," + totalEspanhol + "," + totalFrances + "," + totalMandarim);
+                    writer.println(diretoria + "," + semestre + "," + totalIngles + "," + totalEspanhol + "," + totalFrances);
                 }
             }
             System.out.println("Arquivo CSV gerado com sucesso em: " + filePath);
@@ -109,6 +105,64 @@ public class AnaliseEscola {
             System.err.println("Erro ao escrever no arquivo CSV: " + e.getMessage());
         }
     }
+
+
+    public static void imprimirTabelaAlunosPorIdioma(String idioma, List<BST> databaseBST) {
+        // Mapa para armazenar o total de alunos por diretoria e semestre
+        Map<String, Map<String, Integer>> tabelaAlunosPorDiretoria = new HashMap<>();
+    
+        // Percorre cada árvore BST para calcular os totais de alunos por semestre
+        for (int i = 0; i < databaseBST.size(); i++) {
+            BST bstTree = databaseBST.get(i);
+            AnaliseEscola analise = new AnaliseEscola(bstTree);
+    
+            // Calcula o ano e o semestre
+            int year = 2019 + (i / 2);
+            int semester = (i % 2) + 1;
+            String semestre = year + "-" + semester;
+    
+            // Obtém o total de alunos para todas as diretorias no idioma especificado
+            Map<String, Integer> alunosPorDiretoria = analise.getAlunosParaTodasDiretorias(idioma);
+    
+            // Atualiza a tabela com os dados de cada diretoria para o semestre atual
+            for (Map.Entry<String, Integer> entry : alunosPorDiretoria.entrySet()) {
+                String diretoria = entry.getKey();
+                int totalAlunos = entry.getValue();
+    
+                // Inicializa a entrada da diretoria se ela não existir
+                tabelaAlunosPorDiretoria.putIfAbsent(diretoria, new HashMap<>());
+                tabelaAlunosPorDiretoria.get(diretoria).put(semestre, totalAlunos);
+            }
+        }
+    
+        // Imprime o cabeçalho da tabela com os semestres
+        System.out.printf("%-20s", "Diretoria");
+        for (int i = 0; i < databaseBST.size(); i++) {
+            int year = 2019 + (i / 2);
+            int semester = (i % 2) + 1;
+            System.out.printf("| %-8s ", year + "-" + semester);
+        }
+        System.out.println();
+        System.out.println("-----------------------------------------------------------------------------------");
+    
+        // Imprime cada diretoria e o número de alunos por semestre no idioma especificado
+        for (Map.Entry<String, Map<String, Integer>> entry : tabelaAlunosPorDiretoria.entrySet()) {
+            String diretoria = entry.getKey();
+            System.out.printf("%-20s", diretoria);
+    
+            Map<String, Integer> semestres = entry.getValue();
+            for (int i = 0; i < databaseBST.size(); i++) {
+                int year = 2019 + (i / 2);
+                int semester = (i % 2) + 1;
+                String semestre = year + "-" + semester;
+    
+                int totalAlunos = semestres.getOrDefault(semestre, 0);
+                System.out.printf("| %-8d ", totalAlunos);
+            }
+            System.out.println();
+        }
+    }
+    
    
 
 } // AnaliseEscola
