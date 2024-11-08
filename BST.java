@@ -198,6 +198,20 @@ public class BST{
         }
     }
 
+    // Método para contar o número total de nós na árvore
+    public int countNodes() {
+        return countNodesRec(root);
+    }
+
+    // Método auxiliar recursivo para contar os nós
+    private int countNodesRec(Node node) {
+        if (node == null) {
+            return 0;
+        }
+        // Soma 1 para o nó atual e conta os nós nas subárvores esquerda e direita
+        return 1 + countNodesRec(node.getLeft()) + countNodesRec(node.getRight());
+    }
+
     /*
     Realiza a remoção, e retorna o número de comparações realizadas
     * */
@@ -242,9 +256,6 @@ public class BST{
     }
     
     
-    
-
-
     public int insertContagem(Escola val) {
         int[] contador = {0}; // Usamos um array para passar o contador por referência
         root = insertContagemAux(root, null, val, contador);
